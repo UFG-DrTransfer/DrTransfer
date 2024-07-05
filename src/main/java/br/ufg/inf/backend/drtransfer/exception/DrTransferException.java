@@ -6,4 +6,10 @@ public class DrTransferException extends RuntimeException {
 
         super(message);
     }
+
+
+    public DrTransferException(String message, Object...args) {
+
+        super(String.format(message,args));
+    }
 }
