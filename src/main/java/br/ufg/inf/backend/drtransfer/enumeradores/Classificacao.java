@@ -5,11 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum MeioTransporte {
-    TERRESTRE("Terrestre"),
-    AVIAO("Avião"),
-    HELICOPTERO("Helicóptero");
-
+public enum Classificacao {
+    PRIMARIA("Primária"),
+    SECUNDARIA("Secundária"),
+    TERCIARIA("Terciária");
     private final String descricao;
-
 }

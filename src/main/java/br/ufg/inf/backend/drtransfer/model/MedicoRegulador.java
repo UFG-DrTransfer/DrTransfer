@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Medico extends Pessoa{
+public class MedicoRegulador extends Pessoa{
     private String crm;
-    private Hospital hospital;
-    private Especialidade especialidade;
 }
