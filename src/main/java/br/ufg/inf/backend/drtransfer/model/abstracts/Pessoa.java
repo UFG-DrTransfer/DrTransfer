@@ -1,7 +1,6 @@
-package br.ufg.inf.backend.drtransfer.model;
+package br.ufg.inf.backend.drtransfer.model.abstracts;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.Sexo;
-import jakarta.persistence.Entity;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 

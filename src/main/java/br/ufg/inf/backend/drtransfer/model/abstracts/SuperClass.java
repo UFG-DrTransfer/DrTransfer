@@ -1,4 +1,4 @@
-package br.ufg.inf.backend.drtransfer.model;
+package br.ufg.inf.backend.drtransfer.model.abstracts;
 
 
 import jakarta.persistence.GeneratedValue;

@@ -1,5 +1,6 @@
 package br.ufg.inf.backend.drtransfer.model;
 
+import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Solicitacao extends SuperClass{
+public class Solicitacao extends SuperClass {
     private Medico medico;
     private Paciente paciente;
     private String motivo;

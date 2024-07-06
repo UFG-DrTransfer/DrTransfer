@@ -1,6 +1,7 @@
 package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.UnidadeDosagem;
+import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
