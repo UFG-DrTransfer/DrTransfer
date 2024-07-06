@@ -10,8 +10,8 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Data
 @MappedSuperclass
+@Data
 public abstract class SuperClass implements Serializable {
 
     @Id
@@ -20,7 +20,5 @@ public abstract class SuperClass implements Serializable {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private boolean active = true;
-
-
 
 }

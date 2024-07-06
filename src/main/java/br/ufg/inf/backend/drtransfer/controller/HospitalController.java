@@ -13,25 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RequestMapping("/hospital")
 @RestController
-
+@RequestMapping("/hospital")
 public class HospitalController {
-
 
     @Autowired
     private HospitalService service;
 
     @GetMapping
-    public ResponseEntity<List<Hospital>> getAll() {
+    public ResponseEntity<?> getAll() {
         List<Hospital> hospitals = service.findAll();
         if (hospitals.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(hospitals, HttpStatus.OK);
     }
-
-
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Hospital hospital) {
@@ -45,8 +41,6 @@ public class HospitalController {
                    .body("Erro ao salvar hospital: " + e.getMessage());
        }
     }
-
-
 
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Hospital hospital) {
@@ -62,7 +56,7 @@ public class HospitalController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteHospital(@PathVariable Long id) {
+    public ResponseEntity<?> deleteHospital(@PathVariable Long id) {
         try{
             service.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);

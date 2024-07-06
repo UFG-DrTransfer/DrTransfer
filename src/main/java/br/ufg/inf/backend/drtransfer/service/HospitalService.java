@@ -9,49 +9,40 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class HospitalService {
 
-    @Autowired
-    private HospitalRepository repository;
+	@Autowired
+	private HospitalRepository repository;
 
-    public List<Hospital> findAll() {
+	public List<Hospital> findAll() {
+		return repository.findAll();
+	}
 
-        return repository.findAll();
-    }
+	public Hospital save(Hospital hospital) {
+		try {
+			return repository.save(hospital);
+		} catch (Exception e) {
+			throw new DrTransferException("Falha ao salvar no BD");
+		}
+	}
 
-    public Hospital save(Hospital hospital) {
-       try{
-           return repository.save(hospital);
-       }
-       catch(Exception e){
-           throw new DrTransferException("Falha ao salvar no BD");
-       }
-    }
+	public Hospital update(Hospital hospital) {
+		Optional<Hospital> existingHospital = repository.findById(hospital.getId());
+		if (existingHospital.isPresent()) {
+			return save(hospital);
+		} else {
+			throw new DrTransferException("Hospital com ID %d não encontrado", hospital.getId());
+		}
+	}
 
-
-    public Hospital update(Hospital hospital) {
-        Optional<Hospital> existingHospital = repository.findById(hospital.getId());
-
-        if (existingHospital.isPresent()) {
-
-            return save(hospital);
-
-        } else {
-            throw new DrTransferException("Hospital com ID %d não encontrado", hospital.getId());
-        }
-    }
-
-    public void deleteById(Long id) {
-
-        Optional<Hospital> existingHospital = repository.findById(id);
-        if (existingHospital.isPresent()) {
-            repository.deleteById(id);
-
-        }else{
-            throw new DrTransferException("Hospital com ID %d não encontrado", id);
-        }
-    }
+	public void deleteById(Long id) {
+		Optional<Hospital> existingHospital = repository.findById(id);
+		if (existingHospital.isPresent()) {
+			repository.deleteById(id);
+		} else {
+			throw new DrTransferException("Hospital com ID %d não encontrado", id);
+		}
+	}
 
 }
