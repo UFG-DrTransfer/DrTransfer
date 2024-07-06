@@ -1,10 +1,10 @@
 package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.MeioTransporte;
+import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
-import javax.swing.text.Document;
 import java.time.LocalDateTime;
 
 @Entity
