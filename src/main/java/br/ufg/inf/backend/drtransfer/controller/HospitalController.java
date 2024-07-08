@@ -22,11 +22,15 @@ public class HospitalController {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Hospital> hospitals = service.findAll();
+      try{  List<Hospital> hospitals = service.findAll();
         if (hospitals.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(hospitals, HttpStatus.OK);
+      } catch (Exception e){
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                  .body("Erro ao buscar hospital: " + e.getMessage());
+      }
     }
 
     @PostMapping
