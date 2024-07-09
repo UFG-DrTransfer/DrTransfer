@@ -48,7 +48,7 @@ public class DrogasController {
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody Droga droga) {
+    public ResponseEntity<?> update(@RequestBody Drogas droga) {
         try{
             Drogas SavedDroga = service.update(droga);
             return new ResponseEntity<>(SavedDroga, HttpStatus.CREATED);
