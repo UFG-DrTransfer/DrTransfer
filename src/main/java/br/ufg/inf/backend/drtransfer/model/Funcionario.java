@@ -6,11 +6,10 @@ import lombok.Data;
 
 @Entity
 @Data
-<<<<<<< HEAD
+
 public class Funcionario extends Pessoa{
 
+    private String cargo;
+    private Hospital hospitalDoFuncionario;
 
-=======
-public class Funcionario extends Pessoa {
->>>>>>> 1eb7bd08f5e25dbb0e7e1718293f0fbeac4cb3c8
 }

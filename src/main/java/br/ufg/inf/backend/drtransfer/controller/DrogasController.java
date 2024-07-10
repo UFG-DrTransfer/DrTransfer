@@ -23,7 +23,7 @@ public class DrogasController {
         try {
             List<Drogas> drogas = service.findAll();
             if (drogas.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return ResponseEntity.noContent().build();
             }
             return new ResponseEntity<>(drogas, HttpStatus.OK);
         } catch (Exception e) {
@@ -36,11 +36,10 @@ public class DrogasController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Drogas droga) {
-        try{
+        try {
             Drogas savedDroga = service.save(droga);
             return new ResponseEntity<>(savedDroga, HttpStatus.CREATED);
-        }
-        catch(DrTransferException e){
+        } catch (DrTransferException e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao salvar droga: " + e.getMessage());
@@ -49,11 +48,10 @@ public class DrogasController {
 
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Drogas droga) {
-        try{
+        try {
             Drogas SavedDroga = service.update(droga);
             return new ResponseEntity<>(SavedDroga, HttpStatus.CREATED);
-        }
-        catch(DrTransferException e){
+        } catch (DrTransferException e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar droga: " + e.getMessage());
@@ -62,11 +60,10 @@ public class DrogasController {
 
     @DeleteMapping
     public ResponseEntity<?> deleteDroga(@PathVariable Long id) {
-        try{
+        try {
             service.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-        catch(DrTransferException e){
+        } catch (DrTransferException e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao deletar droga: " + e.getMessage());

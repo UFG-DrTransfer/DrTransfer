@@ -1,17 +1,15 @@
 package br.ufg.inf.backend.drtransfer.model;
 
-
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
-
 @Entity
 @Data
-public class Drogas extends SuperClass {
+public class Cargo extends SuperClass {
 
-    private Long id;
+    private String funcao;
     private String nome;
-    private String principioAtivo;
-    private String descricao;
+
+
 }
