@@ -4,7 +4,6 @@ package br.ufg.inf.backend.drtransfer.controller;
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Hospital;
 import br.ufg.inf.backend.drtransfer.service.HospitalService;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +31,23 @@ public class HospitalController {
                   .body("Erro ao buscar hospital: " + e.getMessage());
       }
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> findByName(@RequestParam String nome) {
+        try {
+            Hospital hospital = service.findByName(nome);
+            return ResponseEntity.ok(hospital);
+        }catch (DrTransferException e){
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao buscar hospital: " + e.getMessage());
+
+        }
+
+
+    }
+
+
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Hospital hospital) {

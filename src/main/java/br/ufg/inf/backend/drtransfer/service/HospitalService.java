@@ -19,6 +19,15 @@ public class HospitalService {
 		return repository.findAll();
 	}
 
+	public Hospital findByName(String nome) {
+		Optional<Hospital> hospital = repository.findByNome(nome);
+		if (hospital.isPresent()) {
+			return hospital.get();
+		}else {
+			throw new DrTransferException("Hospital com nome: " + nome + " não encontrado.");
+		}
+	}
+
 	public Hospital save(Hospital hospital) {
 		try {
 			return repository.save(hospital);
