@@ -4,6 +4,7 @@ import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 public class Endereco extends SuperClass {
 
     private String cep;
@@ -22,7 +23,7 @@ public class Endereco extends SuperClass {
     private String cidade;
     private String estado;
 
-    @OneToOne (mappedBy= "endereco")
+    @OneToOne(mappedBy = "endereco")
     private Hospital hospital;
 
 }

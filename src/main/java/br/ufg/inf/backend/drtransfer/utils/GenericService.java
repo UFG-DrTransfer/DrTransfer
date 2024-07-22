@@ -1,6 +1,7 @@
 package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
+import br.ufg.inf.backend.drtransfer.exception.DrTransferNotFoundException;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class GenericService<E extends SuperClass, R extends JpaRepository<E, Long>> {
+
+    public static final String FALHA_BD = "Falha ao %s %s, tente novamente. Se o problema persistir contacte o suporte";
 
     @Autowired
     protected R repository;
@@ -24,32 +27,52 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     }
 
     public E findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(() -> new DrTransferNotFoundException("%s com ID %d não encontrado", nomeClasse, id));
     }
 
     public E save(E entidade) {
         try {
             return repository.save(entidade);
         } catch (Exception e) {
-            throw new DrTransferException("Falha ao salvar %s", nomeClasse);
+            throw new DrTransferException(FALHA_BD, "salvar", nomeClasse);
         }
     }
 
     public E update(E entidade) {
-        Optional<E> existingE = repository.findById(entidade.getId());
-        if (existingE.isPresent()) {
+        validaNulo(entidade);
+        return update(entidade.getId(), entidade);
+    }
+
+    public E update(Long id, E entidade) {
+        try {
+            E entidadePersistida = findById(id);
+            atualizarEntidade(entidadePersistida, entidade);
             return repository.save(entidade);
-        } else {
-            throw new DrTransferException("%s com ID %d não encontrado", nomeClasse, entidade.getId());
+        } catch (Exception e) {
+            throw new DrTransferException(FALHA_BD, "atualizar", nomeClasse);
         }
     }
 
+    /**
+     * Essa função vai definir os set nos atributos que serão atualizados dessa entidade.
+     *
+     * @param entidadePersistida entidade que foi recuperada do banco
+     * @param entidadeAtualizada entidade que contem os novos dados a serem SETADOS
+     */
+    protected abstract void atualizarEntidade(E entidadePersistida, E entidadeAtualizada);
+
     public void deleteById(Long id) {
-        Optional<E> existingE = repository.findById(id);
-        if (existingE.isPresent()) {
+        try {
+            findById(id);
             repository.deleteById(id);
-        } else {
-            throw new DrTransferException("%s com ID %d não encontrado", nomeClasse, id);
+        } catch (Exception e) {
+            throw new DrTransferException(FALHA_BD, "deletar", nomeClasse);
+        }
+    }
+
+    private void validaNulo(E entidade) {
+        if (entidade == null) {
+            throw new DrTransferException("%s com não foi informado.", nomeClasse);
         }
     }
 
