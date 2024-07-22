@@ -9,5 +9,6 @@ public enum Classificacao {
     PRIMARIA("Primária"),
     SECUNDARIA("Secundária"),
     TERCIARIA("Terciária");
+
     private final String descricao;
 }

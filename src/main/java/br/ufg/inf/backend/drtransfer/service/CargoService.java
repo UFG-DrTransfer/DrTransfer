@@ -18,7 +18,7 @@ public class CargoService {
     }
 
     public Cargo findByName(String nome) {
-        Optional<Cargo> cargo = repository.findByNome(nome);
+        Optional<Cargo> cargo = repository.findByName(nome);
         if (cargo.isPresent()) {
             return cargo.get();
         }else{
@@ -48,14 +48,16 @@ public class CargoService {
         if (cargoOptional.isPresent()) {
             repository.deleteById(id);
         }else{
-            throw new DrTransferException("Cargo com ID %D nao encontrado", cargo.getId());
+            throw new DrTransferException("Cargo com ID %D nao encontrado", id);
         }
     }
 
-    public void deleteByNome(String nome) {
+    public void deleteByName(String nome) {
         Optional<Cargo> cargoOptional = repository.findByName(nome);
         if (cargoOptional.isPresent()) {
-            repository.deleteByNome(nome);
+            repository.deleteByName(nome);
+        }else {
+            throw new DrTransferException("Cargo com nome: "  + nome + " nao encontrado");
         }
     }
 }
