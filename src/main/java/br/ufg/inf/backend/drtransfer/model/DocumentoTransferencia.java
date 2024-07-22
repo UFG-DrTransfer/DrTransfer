@@ -3,6 +3,7 @@ package br.ufg.inf.backend.drtransfer.model;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class DocumentoTransferencia extends SuperClass {
 //    private List drogasAdministradas;
 //    private List procedimentosAcondicionamento;
