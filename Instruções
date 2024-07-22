@@ -1,0 +1,10 @@
+Organização:
+
+1 - Vamos trabalhar por ISSUES
+2 - Cada um deverá pegar um ISSUE e assginar à si mesmo
+3 - Crie uma branch para lidar com o ISSEU que você escolheu pra trabalhar - Sempre pegando da Branch DEVELOP
+4 - Trabalhe no código, dê um push colocando no commit o número da Issue, dessa forma: #1 + texto que achar encessário. 
+5 - Após esse commit, no github abra um PullRequest
+6 - Um dos colegas vai validar, ou você mesmo pode dar o MERGE na develop.
+
+Em resumo: trabalhe na branch que voce criou a partir da ISSUE, origin sempre a DEVELOP, apague a branch quando der o PR.
