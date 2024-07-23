@@ -17,9 +17,9 @@ import lombok.experimental.SuperBuilder;
 public class Medico extends Pessoa {
 
     private String crm;
-    @ManyToOne
-    private Hospital hospital;
-    private Especialidade especialidade;
+//    @ManyToOne
+//    private Hospital hospital;
+////    private Especialidade especialidade;
 
 
 }

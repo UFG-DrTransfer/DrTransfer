@@ -29,8 +29,8 @@ public class Hospital extends SuperClass {
     private boolean temUti;
     private Integer disponibilidadeLeitos;
 
-    @OneToOne
-    private Endereco endereco;
-    @OneToMany(mappedBy = "hospital")
-    private List<Medico> medicos;
+//    @OneToOne
+//    private Endereco endereco;
+//    @OneToMany(mappedBy = "hospital")
+//    private List<Medico> medicos;
 }

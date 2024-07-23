@@ -43,19 +43,19 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
         if (entidadePersistida.isAtivo() != entidadeAtualizada.isAtivo())
             entidadePersistida.setAtivo(entidadeAtualizada.isAtivo());
-
-        //Buscando o hospital que está vinculado com esse médico para validação.
-        Hospital hospitalValidado = hospitalService.findByEntidade(entidadeAtualizada.getHospital());
-        if (hospitalValidado != null) {
-            entidadePersistida.setHospital(hospitalValidado);
-        }
-
-        //Buscando especialidade que está vinculada ao médico para validação.
-        Especialidade especialidadeValidada = especialidadeService.findByEntidade(entidadeAtualizada.getEspecialidade());
-        if (especialidadeValidada != null) {
-            especialidadeService.atualizarEntidade(especialidadeValidada, entidadeAtualizada.getEspecialidade());
-            entidadePersistida.setEspecialidade(especialidadeValidada);
-        }
+//
+//        //Buscando o hospital que está vinculado com esse médico para validação.
+//        Hospital hospitalValidado = hospitalService.findByEntidade(entidadeAtualizada.getHospital());
+//        if (hospitalValidado != null) {
+//            entidadePersistida.setHospital(hospitalValidado);
+//        }
+//
+//        //Buscando especialidade que está vinculada ao médico para validação.
+//        Especialidade especialidadeValidada = especialidadeService.findByEntidade(entidadeAtualizada.getEspecialidade());
+//        if (especialidadeValidada != null) {
+//            especialidadeService.atualizarEntidade(especialidadeValidada, entidadeAtualizada.getEspecialidade());
+//            entidadePersistida.setEspecialidade(especialidadeValidada);
+//        }
     }
 
     @Override

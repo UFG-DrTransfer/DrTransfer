@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class DocumentoTransferencia extends SuperClass {
+    private String documento;
 //    private List drogasAdministradas;
 //    private List procedimentosAcondicionamento;
 //    private List procedimentoRecebido;

@@ -26,16 +26,16 @@ public class Transferencia extends SuperClass {
     private LocalDateTime horarioPrevisotChegada;
 
     private Double distancia;
-
-    private Paciente paciente;
-    private Medico medicoOrigem;
-    private Hospital hospitalOrigem;
-    private Medico medicoDestino;
-    private Hospital hospitalDestino;
-
-    private MedicoRegulador medicoRegulador;
-
-    private DocumentoTransferencia documento;
-    private Solicitacao solicitacao;
+//
+//    private Paciente paciente;
+//    private Medico medicoOrigem;
+//    private Hospital hospitalOrigem;
+//    private Medico medicoDestino;
+//    private Hospital hospitalDestino;
+//
+//    private MedicoRegulador medicoRegulador;
+//
+//    private DocumentoTransferencia documento;
+//    private Solicitacao solicitacao;
 
 }

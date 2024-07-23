@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-s
+
 @Service
 public class HospitalService extends GenericService<Hospital, HospitalRepository> {
 
@@ -17,13 +17,23 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
         super("Hospital");
     }
 
-	public Hospital findByName(String nome) {
-		Optional<Hospital> hospital = repository.findByNome(nome);
-		if (hospital.isPresent()) {
-			return hospital.get();
-		}else {
-			throw new DrTransferException("Hospital com nome %s nao encontrado", nome);
-		}
+//	public Hospital findByName(String nome) {
+//		Optional<Hospital> hospital = repository.findByNome(nome);
+//		if (hospital.isPresent()) {
+//			return hospital.get();
+//		}else {
+//			throw new DrTransferException("Hospital com nome %s nao encontrado", nome);
+//		}
+//	}
+
+	@Override
+	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) {
+
+	}
+
+	@Override
+	protected void validaEntidade(Hospital entidade) {
+
 	}
 
 //	@Autowired

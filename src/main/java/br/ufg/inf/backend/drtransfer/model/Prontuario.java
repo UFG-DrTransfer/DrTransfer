@@ -21,5 +21,5 @@ import java.util.List;
 public class Prontuario extends SuperClass {
     @Enumerated(EnumType.STRING)
     private Classificacao classificacao;
-    private List<MedicamentoPrescrito> medicamentoAtuais;
+//    private List<MedicamentoPrescrito> medicamentoAtuais;
 }
