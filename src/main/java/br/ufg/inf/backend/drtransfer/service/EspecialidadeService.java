@@ -23,4 +23,9 @@ public class EspecialidadeService extends GenericService<Especialidade, Especial
     protected void validaEntidade(Especialidade entidade) {
         
     }
+
+    @Override
+    protected void atualizaVinculos(Especialidade entidade) {
+
+    }
 }

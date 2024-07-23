@@ -20,4 +20,9 @@ public class FuncionarioService extends GenericService<Funcionario, FuncionarioR
     protected void validaEntidade(Funcionario entidade) {
 
     }
+
+    @Override
+    protected void atualizaVinculos(Funcionario entidade) {
+
+    }
 }

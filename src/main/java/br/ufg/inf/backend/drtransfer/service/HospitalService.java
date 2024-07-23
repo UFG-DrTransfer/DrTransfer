@@ -17,6 +17,21 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
         super("Hospital");
     }
 
+	@Override
+	protected void validaEntidade(Hospital entidade) {
+
+	}
+
+	@Override
+	protected void atualizaVinculos(Hospital entidade) {
+
+	}
+
+	@Override
+	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) {
+
+	}
+
 //	public Hospital findByName(String nome) {
 //		Optional<Hospital> hospital = repository.findByNome(nome);
 //		if (hospital.isPresent()) {
@@ -26,15 +41,6 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 //		}
 //	}
 
-	@Override
-	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) {
-
-	}
-
-	@Override
-	protected void validaEntidade(Hospital entidade) {
-
-	}
 
 //	@Autowired
 //	private HospitalRepository repository;

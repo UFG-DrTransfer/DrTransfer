@@ -13,44 +13,59 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
     @Autowired
     private HospitalService hospitalService;
-    private EspecialidadeService especialidadeService;
+//    private EspecialidadeService especialidadeService;
 
     public MedicoService() {
         super("Médico");
     }
 
     @Override
+    protected void atualizaVinculos(Medico entidade) {
+        if (entidade.getHospital() != null) {
+            if (entidade.getHospital().getId() == null) {
+                //TODO: Criar hospital
+            } else {
+                entidade.setHospital(hospitalService.findByEntidade(entidade.getHospital()));
+            }
+        }
+    }
+
+    @Override
     protected void atualizarEntidade(Medico entidadePersistida, Medico entidadeAtualizada) {
-
-        if (validaString(entidadeAtualizada.getNome()))
+        if (validaString(entidadeAtualizada.getNome())) {
             entidadePersistida.setNome(entidadeAtualizada.getNome());
-
-
-        if (validaString(entidadeAtualizada.getEmail()))
+        }
+        if (validaString(entidadeAtualizada.getEmail())) {
             entidadePersistida.setEmail(entidadeAtualizada.getEmail());
-
-
-        if (validaString(entidadeAtualizada.getTelefone()))
+        }
+        if (validaString(entidadeAtualizada.getTelefone())) {
             entidadePersistida.setTelefone(entidadeAtualizada.getTelefone());
-
-        if (validaString(entidadeAtualizada.getCpf()))
+        }
+        if (validaString(entidadeAtualizada.getCpf())) {
             entidadePersistida.setCpf(entidadeAtualizada.getCpf());
-
-        entidadePersistida.setSexo(entidadeAtualizada.getSexo());
-
-        if (validaString(entidadeAtualizada.getCrm()))
+        }
+        if (validaString(entidadeAtualizada.getCrm())) {
             entidadePersistida.setCrm(entidadeAtualizada.getCrm());
+        }
+        if (entidadeAtualizada.getSexo() != null) {
+            entidadePersistida.setSexo(entidadeAtualizada.getSexo());
+        }
+        if (entidadeAtualizada.getAtivo() != null) {
+            entidadePersistida.setAtivo(entidadeAtualizada.getAtivo());
+        }
+        if (entidadeAtualizada.getHospital() != null) {
+            entidadePersistida.setHospital(entidadeAtualizada.getHospital());
+        }
+        if (entidadeAtualizada.getEspecialidade() != null) {
+            entidadePersistida.setEspecialidade(entidadeAtualizada.getEspecialidade());
+        }
 
-        if (entidadePersistida.isAtivo() != entidadeAtualizada.isAtivo())
-            entidadePersistida.setAtivo(entidadeAtualizada.isAtivo());
-//
-//        //Buscando o hospital que está vinculado com esse médico para validação.
+        //Buscando o hospital que está vinculado com esse médico para validação.
 //        Hospital hospitalValidado = hospitalService.findByEntidade(entidadeAtualizada.getHospital());
 //        if (hospitalValidado != null) {
 //            entidadePersistida.setHospital(hospitalValidado);
 //        }
-//
-//        //Buscando especialidade que está vinculada ao médico para validação.
+        //Buscando especialidade que está vinculada ao médico para validação.
 //        Especialidade especialidadeValidada = especialidadeService.findByEntidade(entidadeAtualizada.getEspecialidade());
 //        if (especialidadeValidada != null) {
 //            especialidadeService.atualizarEntidade(especialidadeValidada, entidadeAtualizada.getEspecialidade());

@@ -19,4 +19,9 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRespository> 
     protected void validaEntidade(Usuario entidade) {
 
     }
+
+    @Override
+    protected void atualizaVinculos(Usuario entidade) {
+
+    }
 }

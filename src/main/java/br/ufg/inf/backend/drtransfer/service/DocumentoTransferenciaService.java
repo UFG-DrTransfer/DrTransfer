@@ -27,5 +27,10 @@ public class DocumentoTransferenciaService extends GenericService<DocumentoTrans
     protected void validaEntidade(DocumentoTransferencia entidade) {
 
     }
+
+    @Override
+    protected void atualizaVinculos(DocumentoTransferencia entidade) {
+
+    }
 }
 
