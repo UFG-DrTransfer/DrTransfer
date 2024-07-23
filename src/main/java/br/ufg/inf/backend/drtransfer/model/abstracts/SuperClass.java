@@ -29,6 +29,6 @@ public abstract class SuperClass implements Serializable {
     private LocalDateTime dataCriacao;
     @UpdateTimestamp
     private LocalDateTime dataAtualizacao;
-    private boolean ativo = true;
+    private Boolean ativo = true;
 
 }

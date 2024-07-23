@@ -1,4 +1,4 @@
-package br.ufg.inf.backend.drtransfer;
+package br.ufg.inf.backend.drtransfer.configuration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

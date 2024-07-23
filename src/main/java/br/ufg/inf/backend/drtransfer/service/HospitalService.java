@@ -26,6 +26,20 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 		}
 	}
 
+	@Override
+	protected void atualizaVinculos(Hospital entidade) {
+	}
+
+	@Override
+	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) {
+
+	}
+
+	@Override
+	protected void validaEntidade(Hospital entidade) {
+
+	}
+
 //	@Autowired
 //	private HospitalRepository repository;
 //

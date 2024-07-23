@@ -21,4 +21,9 @@ public class CargoService extends GenericService<Cargo, CargoRepository> {
         entidadePersistida.setFuncao(entidadeAtualizada.getFuncao());
         entidadePersistida.setNome(entidadeAtualizada.getNome());
     }
+
+    @Override
+    protected void validaEntidade(Cargo entidade) {
+
+    }
 }
