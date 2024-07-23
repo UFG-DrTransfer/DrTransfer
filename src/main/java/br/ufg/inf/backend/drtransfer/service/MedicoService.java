@@ -7,6 +7,7 @@ import br.ufg.inf.backend.drtransfer.model.Medico;
 import br.ufg.inf.backend.drtransfer.repository.MedicoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
@@ -29,16 +30,19 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
             entidadePersistida.setEmail(entidadeAtualizada.getEmail());
 
 
-        //fazer com as demais.
-        entidadePersistida.setTelefone(entidadeAtualizada.getTelefone());
+        if (validaString(entidadeAtualizada.getTelefone()))
+            entidadePersistida.setTelefone(entidadeAtualizada.getTelefone());
 
-        entidadePersistida.setCpf(entidadeAtualizada.getCpf());
+        if (validaString(entidadeAtualizada.getCpf()))
+            entidadePersistida.setCpf(entidadeAtualizada.getCpf());
 
         entidadePersistida.setSexo(entidadeAtualizada.getSexo());
 
-        entidadePersistida.setCrm(entidadeAtualizada.getCrm());
+        if (validaString(entidadeAtualizada.getCrm()))
+            entidadePersistida.setCrm(entidadeAtualizada.getCrm());
 
-        entidadePersistida.setAtivo(entidadeAtualizada.isAtivo());
+        if (entidadePersistida.isAtivo() != entidadeAtualizada.isAtivo())
+            entidadePersistida.setAtivo(entidadeAtualizada.isAtivo());
 
         //Buscando o hospital que está vinculado com esse médico para validação.
         Hospital hospitalValidado = hospitalService.findByEntidade(entidadeAtualizada.getHospital());
