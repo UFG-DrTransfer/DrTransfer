@@ -2,6 +2,7 @@ package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.exception.DrTransferNotFoundException;
+import br.ufg.inf.backend.drtransfer.model.Hospital;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,10 +29,30 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
 
     public E findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new DrTransferNotFoundException("%s com ID %d não encontrado", nomeClasse, id));
+
+//        Optional<E> optional = repository.findById(id);
+//        if (optional.isPresent()) {
+//            return optional.get();
+//        } else {
+//            throw new DrTransferNotFoundException("%s com ID %d não encontrado", nomeClasse, id);
+//        }
+    }
+
+    /**
+     *     Retorna o objeto hospital para o hospitalValidado.
+     */
+    public E findByEntidade(E entidade) {
+        if (entidade != null) {
+            if (entidade.getId() == null)
+                throw new DrTransferException("É necessário informar o ID de %s", nomeClasse);
+            return findById(entidade.getId());
+        }
+        return null;
     }
 
     public E save(E entidade) {
         try {
+            validaEntidade(entidade);
             return repository.save(entidade);
         } catch (Exception e) {
             throw new DrTransferException(FALHA_BD, "salvar", nomeClasse);
@@ -40,6 +61,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
 
     public E update(E entidade) {
         validaNulo(entidade);
+        validaEntidade(entidade);
         return update(entidade.getId(), entidade);
     }
 
@@ -47,7 +69,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
         try {
             E entidadePersistida = findById(id);
             atualizarEntidade(entidadePersistida, entidade);
-            return repository.save(entidade);
+            return update(entidade);
         } catch (Exception e) {
             throw new DrTransferException(FALHA_BD, "atualizar", nomeClasse);
         }
@@ -75,6 +97,12 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
             throw new DrTransferException("%s com não foi informado.", nomeClasse);
         }
     }
+
+    public static boolean validaString(String textoEntrada) {
+        return textoEntrada != null && !textoEntrada.isBlank();
+    }
+
+    protected abstract void validaEntidade(E entidade);
 
 }
 
