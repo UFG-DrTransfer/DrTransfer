@@ -18,4 +18,9 @@ public class EspecialidadeService extends GenericService<Especialidade, Especial
         entidadePersistida.setNome(entidadeAtualizada.getNome());
         entidadePersistida.setDescricao(entidadeAtualizada.getDescricao());
     }
+
+    @Override
+    protected void validaEntidade(Especialidade entidade) {
+        
+    }
 }

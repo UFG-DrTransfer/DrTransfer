@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 
 public abstract class GenericService<E extends SuperClass, R extends JpaRepository<E, Long>> {
 

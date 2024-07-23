@@ -4,9 +4,10 @@ import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Especialidade;
 import br.ufg.inf.backend.drtransfer.model.Hospital;
 import br.ufg.inf.backend.drtransfer.model.Medico;
+import br.ufg.inf.backend.drtransfer.repository.MedicoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
-
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
     @Autowired
@@ -20,13 +21,13 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
     @Override
     protected void atualizarEntidade(Medico entidadePersistida, Medico entidadeAtualizada) {
 
-        if (validaString(entidadeAtualizada.getNome())) {
+        if (validaString(entidadeAtualizada.getNome()))
             entidadePersistida.setNome(entidadeAtualizada.getNome());
-        }
 
-        if (validaString(entidadeAtualizada.getEmail())) {
+
+        if (validaString(entidadeAtualizada.getEmail()))
             entidadePersistida.setEmail(entidadeAtualizada.getEmail());
-        }
+
 
         //fazer com as demais.
         entidadePersistida.setTelefone(entidadeAtualizada.getTelefone());
