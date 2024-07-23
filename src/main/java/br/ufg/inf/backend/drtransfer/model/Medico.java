@@ -19,6 +19,7 @@ public class Medico extends Pessoa {
     private String crm;
     @ManyToOne
     private Hospital hospital;
+    @ManyToOne
     private Especialidade especialidade;
 
 

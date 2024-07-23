@@ -23,5 +23,5 @@ public class MedicamentoPrescrito extends SuperClass {
     @Enumerated(EnumType.STRING)
     private UnidadeDosagem unidadeDosagem;
 
-    private Drogas droga;
+//    private Drogas droga;
 }

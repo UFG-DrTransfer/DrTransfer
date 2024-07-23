@@ -17,17 +17,14 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
         super("Hospital");
     }
 
-	public Hospital findByName(String nome) {
-		Optional<Hospital> hospital = repository.findByNome(nome);
-		if (hospital.isPresent()) {
-			return hospital.get();
-		}else {
-			throw new DrTransferException("Hospital com nome %s nao encontrado", nome);
-		}
+	@Override
+	protected void validaEntidade(Hospital entidade) {
+
 	}
 
 	@Override
 	protected void atualizaVinculos(Hospital entidade) {
+
 	}
 
 	@Override
@@ -35,10 +32,15 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 
 	}
 
-	@Override
-	protected void validaEntidade(Hospital entidade) {
+//	public Hospital findByName(String nome) {
+//		Optional<Hospital> hospital = repository.findByNome(nome);
+//		if (hospital.isPresent()) {
+//			return hospital.get();
+//		}else {
+//			throw new DrTransferException("Hospital com nome %s nao encontrado", nome);
+//		}
+//	}
 
-	}
 
 //	@Autowired
 //	private HospitalRepository repository;

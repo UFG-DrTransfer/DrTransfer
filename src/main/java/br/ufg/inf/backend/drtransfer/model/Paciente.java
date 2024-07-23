@@ -20,5 +20,5 @@ public class Paciente extends Pessoa {
     private String dataNascimento;
     @Enumerated(EnumType.STRING)
     private TipoSanguineo tipoSanguineo;
-    private Prontuario prontuario;
+//    private Prontuario prontuario;
 }

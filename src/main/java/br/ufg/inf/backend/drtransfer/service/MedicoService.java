@@ -13,7 +13,7 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
     @Autowired
     private HospitalService hospitalService;
-    private EspecialidadeService especialidadeService;
+//    private EspecialidadeService especialidadeService;
 
     public MedicoService() {
         super("Médico");
@@ -59,7 +59,6 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
         if (entidadeAtualizada.getEspecialidade() != null) {
             entidadePersistida.setEspecialidade(entidadeAtualizada.getEspecialidade());
         }
-
 
         //Buscando o hospital que está vinculado com esse médico para validação.
 //        Hospital hospitalValidado = hospitalService.findByEntidade(entidadeAtualizada.getHospital());
