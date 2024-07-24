@@ -25,9 +25,7 @@ public class ProntuarioService extends GenericService<Prontuario, ProntuarioRepo
 
     @Override
     protected void validaEntidade(Prontuario entidade) throws DrTransferException {
-        if (entidade.getClassificacao() != null) {
-            throw new DrTransferException(CAMPO_OBRIGATORIO, "Prontuário");
-        }
+        campoObrigatorio(entidade.getClassificacao(), "Prontuario");
     }
 
     @Override
@@ -48,7 +46,7 @@ public class ProntuarioService extends GenericService<Prontuario, ProntuarioRepo
 
     @Override
     protected void atualizarEntidade(Prontuario entidadePersistida, Prontuario entidadeAtualizada) throws DrTransferException {
-        atualizaCampo(entidadePersistida,entidadePersistida, "classificacao");
+        atualizaCampo(entidadePersistida, entidadePersistida, "classificacao");
 //        if (entidadeAtualizada.getClassificacao() != null) {
 //            entidadePersistida.setClassificacao(entidadeAtualizada.getClassificacao());
 //        }
