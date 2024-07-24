@@ -2,6 +2,7 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.UnidadeDosagem;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class MedicamentoPrescrito extends SuperClass {
     @Enumerated(EnumType.STRING)
     private UnidadeDosagem unidadeDosagem;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     private Prontuario prontuario;
 //    private Drogas droga;
