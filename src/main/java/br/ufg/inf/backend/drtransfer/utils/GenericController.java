@@ -26,7 +26,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
             return new ResponseEntity<>(entidades, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar entidade: " + e.getMessage());
+                    .body("Falha ao buscar: " + e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
             return new ResponseEntity<>(service.save(entidade), HttpStatus.CREATED);
         } catch (DrTransferException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao salvar entidade: " + e.getMessage());
+                    .body("Falha ao salvar: " + e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (DrTransferException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao atualizar entidade: " + e.getMessage());
+                    .body("Falha ao atualizar: " + e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (DrTransferException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao deletar entidade: " + e.getMessage());
+                    .body("Falha ao deletar: " + e.getMessage());
         }
     }
 

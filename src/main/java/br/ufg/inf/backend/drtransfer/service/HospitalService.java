@@ -18,6 +18,11 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
     }
 
 	@Override
+	protected void padronizaCampos(Hospital entidade) {
+
+	}
+
+	@Override
 	protected void validaEntidade(Hospital entidade) {
 
 	}
@@ -31,50 +36,4 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) {
 
 	}
-
-//	public Hospital findByName(String nome) {
-//		Optional<Hospital> hospital = repository.findByNome(nome);
-//		if (hospital.isPresent()) {
-//			return hospital.get();
-//		}else {
-//			throw new DrTransferException("Hospital com nome %s nao encontrado", nome);
-//		}
-//	}
-
-
-//	@Autowired
-//	private HospitalRepository repository;
-//
-//	public List<Hospital> findAll() {
-//		return repository.findAll();
-//	}
-//
-
-//
-//	public Hospital save(Hospital hospital) {
-//		try {
-//			return repository.save(hospital);
-//		} catch (Exception e) {
-//			throw new DrTransferException("Falha ao salvar no BD");
-//		}
-//	}
-//
-//	public Hospital update(Hospital hospital) {
-//		Optional<Hospital> existingHospital = repository.findById(hospital.getId());
-//		if (existingHospital.isPresent()) {
-//			return save(hospital);
-//		} else {
-//			throw new DrTransferException("Hospital com ID %d não encontrado", hospital.getId());
-//		}
-//	}
-//
-//	public void deleteById(Long id) {
-//		Optional<Hospital> existingHospital = repository.findById(id);
-//		if (existingHospital.isPresent()) {
-//			repository.deleteById(id);
-//		} else {
-//			throw new DrTransferException("Hospital com ID %d não encontrado", id);
-//		}
-//	}
-
 }

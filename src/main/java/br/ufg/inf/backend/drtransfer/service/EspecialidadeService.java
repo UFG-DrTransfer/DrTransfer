@@ -1,5 +1,6 @@
 package br.ufg.inf.backend.drtransfer.service;
 
+import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Especialidade;
 import br.ufg.inf.backend.drtransfer.repository.EspecialidadeRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
@@ -13,19 +14,30 @@ public class EspecialidadeService extends GenericService<Especialidade, Especial
         super("Especialidade");
     }
 
+
     @Override
-    protected void atualizarEntidade(Especialidade entidadePersistida, Especialidade entidadeAtualizada) {
-        entidadePersistida.setNome(entidadeAtualizada.getNome());
-        entidadePersistida.setDescricao(entidadeAtualizada.getDescricao());
+    protected void padronizaCampos(Especialidade entidade) {
+
     }
 
     @Override
     protected void validaEntidade(Especialidade entidade) {
-        
+        //TODO: nome obrigatorio
+        //TODO: descricao Obrigatória
     }
+
 
     @Override
     protected void atualizaVinculos(Especialidade entidade) {
 
     }
+
+    @Override
+    protected void atualizarEntidade(Especialidade entidadePersistida, Especialidade entidadeAtualizada) throws DrTransferException {
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "nome");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "descricao");
+//        entidadePersistida.setNome(entidadeAtualizada.getNome());
+//        entidadePersistida.setDescricao(entidadeAtualizada.getDescricao());
+    }
+
 }

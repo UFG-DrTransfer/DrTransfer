@@ -31,4 +31,7 @@ public abstract class SuperClass implements Serializable {
     private LocalDateTime dataAtualizacao;
     private Boolean ativo = true;
 
+    public boolean isNovo(){
+        return id == null;
+    }
 }

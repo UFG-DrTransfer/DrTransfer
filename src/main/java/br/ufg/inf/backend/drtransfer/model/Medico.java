@@ -20,5 +20,4 @@ public class Medico extends Pessoa {
     private Hospital hospital;
     @ManyToOne
     private Especialidade especialidade;
-
 }

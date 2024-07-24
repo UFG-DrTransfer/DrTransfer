@@ -6,10 +6,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum UnidadeDosagem {
-    ML("ml"),
-    G("g"),
-    CP("cp");
+    ML("ml", "militros"),
+    G("g", "gramas"),
+    CP("cp", "comprimido");
 
-    private String descricao;
+    private final String sigla;
+    private final String descricao;
 
 }

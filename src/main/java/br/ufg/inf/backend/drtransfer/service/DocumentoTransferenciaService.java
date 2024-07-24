@@ -24,6 +24,11 @@ public class DocumentoTransferenciaService extends GenericService<DocumentoTrans
     }
 
     @Override
+    protected void padronizaCampos(DocumentoTransferencia entidade) {
+
+    }
+
+    @Override
     protected void validaEntidade(DocumentoTransferencia entidade) {
 
     }

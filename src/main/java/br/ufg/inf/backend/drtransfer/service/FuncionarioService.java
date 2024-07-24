@@ -17,12 +17,16 @@ public class FuncionarioService extends GenericService<Funcionario, FuncionarioR
     }
 
     @Override
+    protected void padronizaCampos(Funcionario entidade) {
+
+    }
+
+    @Override
     protected void validaEntidade(Funcionario entidade) {
 
     }
 
     @Override
     protected void atualizaVinculos(Funcionario entidade) {
-
     }
 }
