@@ -28,6 +28,8 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
     protected void validaEntidade(Medico entidade) throws DrTransferException {
         campoObrigatorio(entidade.getNome(), "Nome");
         campoObrigatorio(entidade.getNome(), "CRM");
+
+
 //        if (!validaExistente(entidade.getNome())) {
 //            throw new DrTransferException(" 'Nome' é obrigatório");
 //        }

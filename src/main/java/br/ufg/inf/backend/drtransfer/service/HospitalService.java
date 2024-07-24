@@ -23,7 +23,14 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 	}
 
 	@Override
-	protected void validaEntidade(Hospital entidade) {
+	protected void validaEntidade(Hospital entidade) throws DrTransferException {
+		campoObrigatorio(entidade.getName(),"Nome");
+		campoObrigatorio(entidade.getTelephoneNumber(),("Telefone"));
+		campoObrigatorio(entidade.getLongitude(),"Longitude");
+		campoObrigatorio(entidade.getLatitute(),"Latitude");
+		campoObrigatorio(entidade.getEmail(),"Email");
+		campoObrigatorio(entidade.isTemUti(),"UTI");
+		campoObrigatorio(entidade.getAvailableBeds(),"Leitos Disponíveis");
 
 	}
 
@@ -33,7 +40,16 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 	}
 
 	@Override
-	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) {
+	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) throws DrTransferException {
+
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "name");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "email");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "telephoneNumber");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "temUti");
+		atualizaCampo(entidadePersistida,entidadeAtualizada,"availableBeds");
+		atualizaCampo(entidadePersistida, entidadeAtualizada, "ativo");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "longitude");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "latidude");
 
 	}
 }
