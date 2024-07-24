@@ -16,6 +16,6 @@ import lombok.experimental.SuperBuilder;
 public class Funcionario extends Pessoa {
 
     private String cargo;
-    private Hospital hospital;
+//    private Hospital hospital;
 
 }

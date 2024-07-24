@@ -1,8 +1,6 @@
 package br.ufg.inf.backend.drtransfer.service;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
-import br.ufg.inf.backend.drtransfer.model.Especialidade;
-import br.ufg.inf.backend.drtransfer.model.Hospital;
 import br.ufg.inf.backend.drtransfer.model.Medico;
 import br.ufg.inf.backend.drtransfer.repository.MedicoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
@@ -11,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
+    public static final String ID_INVALIDO = "É necessário passar o identificador do(a) %s";
     @Autowired
     private HospitalService hospitalService;
+    @Autowired
     private EspecialidadeService especialidadeService;
 
     public MedicoService() {
@@ -20,53 +20,80 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
     }
 
     @Override
-    protected void atualizarEntidade(Medico entidadePersistida, Medico entidadeAtualizada) {
+    protected void padronizaCampos(Medico entidade) {
 
-        if (validaString(entidadeAtualizada.getNome()))
-            entidadePersistida.setNome(entidadeAtualizada.getNome());
+    }
+
+    @Override
+    protected void validaEntidade(Medico entidade) throws DrTransferException {
+        campoObrigatorio(entidade.getNome(), "Nome");
+        campoObrigatorio(entidade.getNome(), "CRM");
 
 
-        if (validaString(entidadeAtualizada.getEmail()))
-            entidadePersistida.setEmail(entidadeAtualizada.getEmail());
+//        if (!validaExistente(entidade.getNome())) {
+//            throw new DrTransferException(" 'Nome' é obrigatório");
+//        }
+//        if (!validaExistente(entidade.getCrm())) {
+//            throw new DrTransferException(" 'CRM' é obrigatório");
+//        }
+    }
 
-
-        if (validaString(entidadeAtualizada.getTelefone()))
-            entidadePersistida.setTelefone(entidadeAtualizada.getTelefone());
-
-        if (validaString(entidadeAtualizada.getCpf()))
-            entidadePersistida.setCpf(entidadeAtualizada.getCpf());
-
-        entidadePersistida.setSexo(entidadeAtualizada.getSexo());
-
-        if (validaString(entidadeAtualizada.getCrm()))
-            entidadePersistida.setCrm(entidadeAtualizada.getCrm());
-
-        if (entidadePersistida.isAtivo() != entidadeAtualizada.isAtivo())
-            entidadePersistida.setAtivo(entidadeAtualizada.isAtivo());
-
-        //Buscando o hospital que está vinculado com esse médico para validação.
-        Hospital hospitalValidado = hospitalService.findByEntidade(entidadeAtualizada.getHospital());
-        if (hospitalValidado != null) {
-            entidadePersistida.setHospital(hospitalValidado);
+    @Override
+    protected void atualizaVinculos(Medico entidade) throws DrTransferException {
+        if (entidade.getHospital() != null) {
+            if (entidade.getHospital().isNovo()) {
+                throw new DrTransferException(ID_INVALIDO, "Hospital");
+            } else {
+                entidade.setHospital(hospitalService.findByEntidade(entidade.getHospital()));
+            }
         }
-
-        //Buscando especialidade que está vinculada ao médico para validação.
-        Especialidade especialidadeValidada = especialidadeService.findByEntidade(entidadeAtualizada.getEspecialidade());
-        if (especialidadeValidada != null) {
-            especialidadeService.atualizarEntidade(especialidadeValidada, entidadeAtualizada.getEspecialidade());
-            entidadePersistida.setEspecialidade(especialidadeValidada);
+        if (entidade.getEspecialidade() != null) {
+            if (entidade.getEspecialidade().isNovo()) {
+                throw new DrTransferException(ID_INVALIDO, "Especialidade");
+            } else {
+                entidade.setEspecialidade(especialidadeService.findByEntidade(entidade.getEspecialidade()));
+            }
         }
     }
 
     @Override
-    protected void validaEntidade(Medico entidade) {
-
-        if (!validaString(entidade.getNome())) {
-            throw new DrTransferException(" 'Nome' é obrigatório");
-        }
-        if (!validaString(entidade.getCrm())) {
-            throw new DrTransferException(" 'CRM' é obrigatório");
-        }
+    protected void atualizarEntidade(Medico entidadePersistida, Medico entidadeAtualizada) throws DrTransferException {
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "nome");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "email");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "telefone");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "cpf");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "crm");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "sexo");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "ativo");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "hospital");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "especialidade");
+//        if (validaExistente(entidadeAtualizada.getNome())) {
+//            entidadePersistida.setNome(entidadeAtualizada.getNome());
+//        }
+//        if (validaExistente(entidadeAtualizada.getEmail())) {
+//            entidadePersistida.setEmail(entidadeAtualizada.getEmail());
+//        }
+//        if (validaExistente(entidadeAtualizada.getTelefone())) {
+//            entidadePersistida.setTelefone(entidadeAtualizada.getTelefone());
+//        }
+//        if (validaExistente(entidadeAtualizada.getCpf())) {
+//            entidadePersistida.setCpf(entidadeAtualizada.getCpf());
+//        }
+//        if (validaExistente(entidadeAtualizada.getCrm())) {
+//            entidadePersistida.setCrm(entidadeAtualizada.getCrm());
+//        }
+//        if (entidadeAtualizada.getSexo() != null) {
+//            entidadePersistida.setSexo(entidadeAtualizada.getSexo());
+//        }
+//        if (entidadeAtualizada.getAtivo() != null) {
+//            entidadePersistida.setAtivo(entidadeAtualizada.getAtivo());
+//        }
+//        if (entidadeAtualizada.getHospital() != null) {
+//            entidadePersistida.setHospital(entidadeAtualizada.getHospital());
+//        }
+//        if (entidadeAtualizada.getEspecialidade() != null) {
+//            entidadePersistida.setEspecialidade(entidadeAtualizada.getEspecialidade());
+//        }
     }
 
 }

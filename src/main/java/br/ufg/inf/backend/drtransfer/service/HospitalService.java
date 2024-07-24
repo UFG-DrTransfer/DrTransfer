@@ -17,48 +17,39 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
         super("Hospital");
     }
 
-	public Hospital findByName(String nome) {
-		Optional<Hospital> hospital = repository.findByNome(nome);
-		if (hospital.isPresent()) {
-			return hospital.get();
-		}else {
-			throw new DrTransferException("Hospital com nome %s nao encontrado", nome);
-		}
+	@Override
+	protected void padronizaCampos(Hospital entidade) {
+
 	}
 
-//	@Autowired
-//	private HospitalRepository repository;
-//
-//	public List<Hospital> findAll() {
-//		return repository.findAll();
-//	}
-//
+	@Override
+	protected void validaEntidade(Hospital entidade) throws DrTransferException {
+		campoObrigatorio(entidade.getName(),"Nome");
+		campoObrigatorio(entidade.getTelephoneNumber(),("Telefone"));
+		campoObrigatorio(entidade.getLongitude(),"Longitude");
+		campoObrigatorio(entidade.getLatitute(),"Latitude");
+		campoObrigatorio(entidade.getEmail(),"Email");
+		campoObrigatorio(entidade.isTemUti(),"UTI");
+		campoObrigatorio(entidade.getAvailableBeds(),"Leitos Disponíveis");
 
-//
-//	public Hospital save(Hospital hospital) {
-//		try {
-//			return repository.save(hospital);
-//		} catch (Exception e) {
-//			throw new DrTransferException("Falha ao salvar no BD");
-//		}
-//	}
-//
-//	public Hospital update(Hospital hospital) {
-//		Optional<Hospital> existingHospital = repository.findById(hospital.getId());
-//		if (existingHospital.isPresent()) {
-//			return save(hospital);
-//		} else {
-//			throw new DrTransferException("Hospital com ID %d não encontrado", hospital.getId());
-//		}
-//	}
-//
-//	public void deleteById(Long id) {
-//		Optional<Hospital> existingHospital = repository.findById(id);
-//		if (existingHospital.isPresent()) {
-//			repository.deleteById(id);
-//		} else {
-//			throw new DrTransferException("Hospital com ID %d não encontrado", id);
-//		}
-//	}
+	}
 
+	@Override
+	protected void atualizaVinculos(Hospital entidade) {
+
+	}
+
+	@Override
+	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) throws DrTransferException {
+
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "name");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "email");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "telephoneNumber");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "temUti");
+		atualizaCampo(entidadePersistida,entidadeAtualizada,"availableBeds");
+		atualizaCampo(entidadePersistida, entidadeAtualizada, "ativo");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "longitude");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "latidude");
+
+	}
 }

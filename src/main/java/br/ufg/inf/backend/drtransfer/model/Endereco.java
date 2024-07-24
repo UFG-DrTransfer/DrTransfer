@@ -24,7 +24,7 @@ public class Endereco extends SuperClass {
     private String cidade;
     private String estado;
 
-    @OneToOne(mappedBy = "endereco")
-    private Hospital hospital;
+//    @OneToOne(mappedBy = "endereco")
+//    private Hospital hospital;
 
 }

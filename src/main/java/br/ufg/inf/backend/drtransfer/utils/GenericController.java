@@ -2,9 +2,7 @@ package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.exception.DrTransferNotFoundException;
-import br.ufg.inf.backend.drtransfer.model.E;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
-import br.ufg.inf.backend.drtransfer.service.EService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +26,9 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
             return new ResponseEntity<>(entidades, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar entidade: " + e.getMessage());
+                    .body("Falha ao buscar: " + e.getMessage());
         }
     }
-
-    @GetMapping("/search")
-    public ResponseEntity<?> findByName(@RequestParam String nome) {
-        try {
-            E entidade = service.findByName(nome);
-            return ResponseEntity.ok(entidade);
-        } catch (DrTransferException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar entidade: " + e.getMessage());
-        }
-    }
-
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody E entidade) {
@@ -50,19 +36,19 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
             return new ResponseEntity<>(service.save(entidade), HttpStatus.CREATED);
         } catch (DrTransferException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao salvar entidade: " + e.getMessage());
+                    .body("Falha ao salvar: " + e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody E entidade) {
         try {
-            return new ResponseEntity<>(service.update(id, entidadePersistida), HttpStatus.CREATED);
+            return new ResponseEntity<>(service.update(id, entidade), HttpStatus.CREATED);
         } catch (DrTransferNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (DrTransferException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao atualizar entidade: " + e.getMessage());
+                    .body("Falha ao atualizar: " + e.getMessage());
         }
     }
 
@@ -73,7 +59,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (DrTransferException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao deletar entidade: " + e.getMessage());
+                    .body("Falha ao deletar: " + e.getMessage());
         }
     }
 

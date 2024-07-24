@@ -2,9 +2,7 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.TipoSanguineo;
 import br.ufg.inf.backend.drtransfer.model.abstracts.Pessoa;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +18,6 @@ public class Paciente extends Pessoa {
     private String dataNascimento;
     @Enumerated(EnumType.STRING)
     private TipoSanguineo tipoSanguineo;
+    @OneToOne
     private Prontuario prontuario;
 }
