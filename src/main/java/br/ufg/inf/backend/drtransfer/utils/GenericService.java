@@ -14,10 +14,11 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
 
     @Autowired
     protected R repository;
-    private final String nomeClasse;
+    protected final String nomeClasse;
 
-    public static final String FALHA_BD = "Falha desconhecida. Contacte o suporte.";
     public static final String CAMPO_OBRIGATORIO = "%s contém o campo %s que é obrigatório.";
+    public static final String CONFLICT = "%s já existe um cadastro com este %s";
+    public static final String FALHA_BD = "Falha desconhecida. Contacte o suporte.";
 
 
     //Dar nome as classes para o retorno das mensagens.
@@ -164,7 +165,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      *
      * @param entidadePersistida entidade que foi buscada do banco de dados
      * @param entidadeAtualizada entidade com os novos dados que precisa atualizar na entidadePersistida
-     * @param nomeAtributo              nome do campo que será atualizado
+     * @param nomeAtributo       nome do campo que será atualizado
      * @param <T>                o tipo da classe da entidade.
      */
     public static <T> void atualizaCampo(T entidadePersistida, T entidadeAtualizada, String nomeAtributo) throws DrTransferException {

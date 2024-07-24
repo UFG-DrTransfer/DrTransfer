@@ -1,11 +1,13 @@
 package br.ufg.inf.backend.drtransfer.service;
 
+import br.ufg.inf.backend.drtransfer.exception.DrTransferConflictException;
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Cargo;
 import br.ufg.inf.backend.drtransfer.repository.CargoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
-import static br.ufg.inf.backend.drtransfer.utils.Utils.*;
 import org.springframework.stereotype.Service;
+
+import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
 
 @Service
 public class CargoService extends GenericService<Cargo, CargoRepository> {
@@ -14,7 +16,7 @@ public class CargoService extends GenericService<Cargo, CargoRepository> {
 //    private MedicoService medicoService;
 
     public CargoService() {
-        super("CargoService");
+        super("Cargo");
     }
 
     @Override
@@ -24,8 +26,14 @@ public class CargoService extends GenericService<Cargo, CargoRepository> {
 
     @Override
     protected void validaEntidade(Cargo entidade) throws DrTransferException {
+        validaNome(entidade);
+    }
+
+    private void validaNome(Cargo entidade) throws DrTransferException {
         campoObrigatorio(entidade.getNome(), "Nome");
-        // TODO: consultar se existe algum cadastro com o nome informado
+        if (repository.findByNome(entidade.getNome()).isPresent()) {
+            throw new DrTransferConflictException(CONFLICT, nomeClasse, "Nome");
+        }
     }
 
     @Override

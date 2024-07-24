@@ -31,15 +31,27 @@ public abstract class Utils {
     }
 
     /**
-     * Método para padronizar uma string para maiuscula
+     * Método para remover espaços duplos e aplicar trim()
      *
      * @param str
      * @return
      */
-    public static String padronizarString(String str) {
-        return str.toUpperCase();
+    public static String removerEspacosDuplos(String str) {
+        if (str == null) {
+            return null;
+        }
+        return str.trim().replaceAll("\\s+", " ");
     }
 
+    /**
+     * Passa a entidade e o nome do atributo que seja string e atualiza ele para caixa alta, com trim() e sem espaço duplo.
+     *
+     * @param entidade
+     * @param nomeAtributo
+     * @param <T>
+     * @return
+     * @throws DrTransferException
+     */
     public static <T> T maiuscula(T entidade, String nomeAtributo) throws DrTransferException {
         try {
             Field campo = entidade.getClass().getDeclaredField(nomeAtributo);
@@ -54,16 +66,4 @@ public abstract class Utils {
         return entidade;
     }
 
-    /**
-     * Método para remover espaços duplos e aplicar trim()
-     *
-     * @param str
-     * @return
-     */
-    public static String removerEspacosDuplos(String str) {
-        if (str == null) {
-            return null;
-        }
-        return str.trim().replaceAll("\\s+", " ");
-    }
 }
