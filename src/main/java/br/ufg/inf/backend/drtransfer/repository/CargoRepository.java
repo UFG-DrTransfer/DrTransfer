@@ -9,7 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface CargoRepository extends JpaRepository<Cargo, Long> {
-//    Optional<Cargo> findByName(String nome);
-//
-//    void deleteByName(String nome);
 }

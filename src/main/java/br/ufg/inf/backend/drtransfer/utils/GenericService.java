@@ -51,6 +51,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     }
 
     public E save(E entidade) throws DrTransferException {
+        padronizaCampos(entidade);
         validaEntidade(entidade);
         atualizaVinculos(entidade);
         try {
@@ -67,10 +68,10 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
 
     public E update(Long id, E entidade) throws DrTransferException {
         E entidadePersistida = findById(id);
+        padronizaCampos(entidadePersistida);
         validaEntidade(entidade);
         atualizaVinculos(entidade);
         atualizarEntidade(entidadePersistida, entidade);
-        padronizaCampos(entidadePersistida);
         try {
             return repository.save(entidadePersistida);
         } catch (Exception e) {
@@ -112,7 +113,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      *
      * @param entidade
      */
-    protected abstract void padronizaCampos(E entidade);
+    protected abstract void padronizaCampos(E entidade) throws DrTransferException;
 
     /**
      * Valida todos campos que são obrigatórios para a entidade poder ser criada
@@ -163,25 +164,25 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      *
      * @param entidadePersistida entidade que foi buscada do banco de dados
      * @param entidadeAtualizada entidade com os novos dados que precisa atualizar na entidadePersistida
-     * @param campo              nome do campo que será atualizado
+     * @param nomeAtributo              nome do campo que será atualizado
      * @param <T>                o tipo da classe da entidade.
      */
-    public static <T> void atualizaCampo(T entidadePersistida, T entidadeAtualizada, String campo) throws DrTransferException {
+    public static <T> void atualizaCampo(T entidadePersistida, T entidadeAtualizada, String nomeAtributo) throws DrTransferException {
         try {
             // Obter o método getter para o campo especificado na entidadeAtualizada
-            Method getter = entidadeAtualizada.getClass().getMethod("get" + capitalize(campo));
+            Method getter = entidadeAtualizada.getClass().getMethod("get" + capitalize(nomeAtributo));
             // Invocar o método getter para obter o valor atualizado
             Object valorAtualizado = getter.invoke(entidadeAtualizada);
 
             // Verificar se o valor atualizado não é nulo e, no caso de strings, não é vazio
             if (validaExistente(valorAtualizado)) {
                 // Obter o método setter correspondente na entidadePersistida
-                Method setter = entidadePersistida.getClass().getMethod("set" + capitalize(campo), getter.getReturnType());
+                Method setter = entidadePersistida.getClass().getMethod("set" + capitalize(nomeAtributo), getter.getReturnType());
                 // Invocar o método setter para atualizar o campo na entidadePersistida
                 setter.invoke(entidadePersistida, valorAtualizado);
             }
         } catch (Exception e) {
-            throw new DrTransferException("Falha ao atualizar campo %s, entre em contato com suporte.", campo);
+            throw new DrTransferException("Falha ao atualizar campo %s, entre em contato com suporte.", nomeAtributo);
         }
     }
 

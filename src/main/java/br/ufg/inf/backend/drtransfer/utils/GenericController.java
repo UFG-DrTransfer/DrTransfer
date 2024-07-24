@@ -30,18 +30,6 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
         }
     }
 
-//    @GetMapping("/search")
-//    public ResponseEntity<?> findByName(@RequestParam String nome) {
-//        try {
-//            E entidade = service.findByName(nome);
-//            return ResponseEntity.ok(entidade);
-//        } catch (DrTransferException e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("Erro ao buscar entidade: " + e.getMessage());
-//        }
-//    }
-
-
     @PostMapping
     public ResponseEntity<?> save(@RequestBody E entidade) {
         try {
