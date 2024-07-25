@@ -16,8 +16,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Paciente extends Pessoa {
     private String dataNascimento;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TipoSanguineo tipoSanguineo;
+
     @OneToOne
     private Prontuario prontuario;
 }

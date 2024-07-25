@@ -2,6 +2,7 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.model.abstracts.Pessoa;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Funcionario extends Pessoa {
 
-    private String cargo;
+    @ManyToOne
+    private Cargo cargo;
 //    private Hospital hospital;
 
 }
