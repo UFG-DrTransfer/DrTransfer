@@ -7,6 +7,8 @@ import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
+
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
@@ -21,7 +23,8 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
     }
 
     @Override
-    protected void padronizaCampos(Medico entidade) {
+    protected void padronizaCampos(Medico entidade) throws DrTransferException {
+        maiuscula(entidade, "nome");
 
     }
 

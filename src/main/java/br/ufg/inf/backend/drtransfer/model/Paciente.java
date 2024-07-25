@@ -9,13 +9,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 public class Paciente extends Pessoa {
-    private String dataNascimento;
+
+    private LocalDate dataNascimento;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

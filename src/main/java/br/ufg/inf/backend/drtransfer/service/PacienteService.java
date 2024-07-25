@@ -20,6 +20,7 @@ public class PacienteService extends GenericService<Paciente, PacienteRepository
     private ProntuarioService prontuarioService;
 
     public PacienteService() {
+
         super("Paciente");
     }
 
