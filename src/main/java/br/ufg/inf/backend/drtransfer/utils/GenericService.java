@@ -1,15 +1,17 @@
 package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
-import br.ufg.inf.backend.drtransfer.exception.DrTransferNotFoundException;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@Service
 public abstract class GenericService<E extends SuperClass, R extends JpaRepository<E, Long>> {
 
     @Autowired
@@ -30,8 +32,9 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
         return repository.findAll();
     }
 
-    public E findById(Long id) throws DrTransferNotFoundException {
-        return repository.findById(id).orElseThrow(() -> new DrTransferNotFoundException("%s com ID %d não encontrado", nomeClasse, id));
+    public E findById(Long id) throws DrTransferException {
+        return repository.findById(id)
+                .orElseThrow(() -> new DrTransferException(HttpStatus.NOT_FOUND, "%s com ID %d não encontrado", nomeClasse, id));
 //        Optional<E> optional = repository.findById(id);
 //        if (optional.isPresent()) {
 //            return optional.get();
@@ -58,7 +61,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
         try {
             return repository.save(entidade);
         } catch (Exception e) {
-            throw new DrTransferException(FALHA_BD, "salvar", nomeClasse);
+            throw new DrTransferException(HttpStatus.UNPROCESSABLE_ENTITY, FALHA_BD, "salvar", nomeClasse);
         }
     }
 
@@ -77,22 +80,22 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
         try {
             return repository.save(entidadePersistida);
         } catch (Exception e) {
-            throw new DrTransferException(FALHA_BD, "atualizar", nomeClasse);
+            throw new DrTransferException(HttpStatus.UNPROCESSABLE_ENTITY, FALHA_BD, "atualizar", nomeClasse);
         }
     }
 
     public void deleteById(Long id) throws DrTransferException {
+        findById(id);
         try {
-            findById(id);
             repository.deleteById(id);
         } catch (Exception e) {
-            throw new DrTransferException(FALHA_BD, "deletar", nomeClasse);
+            throw new DrTransferException(HttpStatus.CONFLICT, FALHA_BD, "deletar", nomeClasse);
         }
     }
 
     protected void validaNulo(E entidade) throws DrTransferException {
         if (entidade == null) {
-            throw new DrTransferException("%s com não foi informado.", nomeClasse);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST,"%s com não foi informado.", nomeClasse);
         }
     }
 
@@ -105,7 +108,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      */
     protected void campoObrigatorio(Object objetoValidacao, String nomeCampo) throws DrTransferException {
         if (objetoValidacao == null) {
-            throw new DrTransferException(CAMPO_OBRIGATORIO, nomeClasse, nomeCampo);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST, CAMPO_OBRIGATORIO, nomeClasse, nomeCampo);
         }
     }
 
@@ -184,7 +187,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
                 setter.invoke(entidadePersistida, valorAtualizado);
             }
         } catch (Exception e) {
-            throw new DrTransferException("Falha ao atualizar campo %s, entre em contato com suporte.", nomeAtributo);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST, "Falha ao atualizar campo %s, não foi encontrado o método get%s e set%s entre em contato com suporte.", nomeAtributo, capitalize(nomeAtributo), capitalize(nomeAtributo));
         }
     }
 
@@ -196,7 +199,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      */
     private static String capitalize(String str) throws DrTransferException {
         if (str == null || str.isEmpty()) {
-             return str;
+            return str;
         }
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }

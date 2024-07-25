@@ -12,41 +12,20 @@ import java.util.Optional;
 
 @Repository
 public interface CargoRepository extends JpaRepository<Cargo, Long> {
-    @Query("SELECT obj FROM Cargo obj " +
-            "WHERE obj.nome = :nome " +
-            "AND (:id IS NULL OR obj.id <> :id)")
-    Optional<Cargo> findByNomeAndIdNot(@Param("nome") String nome, @Param("id") Long id);}
 
+    /**
+     * Verifica se existe o nome salvo no BD
+     * @param nome
+     * @return
+     */
+    boolean existsByNome(String nome);
 
-/*
-         Atualizar um cargo cujo nome exista.
-         findByNomeAndNotId -> pra procurar pelo nome
-           id = null -> 1
-           nome = Administrador
-           select Obj
-           from Cargo
-           Where nome = Administrador and id != null
+    /**
+     * Verifica se existe o nome que não tenha o id no BD
+     * @param nome
+     * @param id
+     * @return
+     */
+    boolean existsByNomeAndIdNot(String nome, Long id);
 
-           id = null -> 2
-           nome = Contador
-           select Obj
-           from Cargo
-           Where nome = Contador and id != null
-
-           if ((entidade.isNovo() && nomeCargo.isPresent()) ||
-                (!entidade.isNovo() && nomeCargo.isPresent() && nomeCargo.get().getId().equals(entidade.getId()))) {
-
-
-           UPDATE pra um nome que existe:
-           id = 1
-           nome = Contador
-           select Obj
-           from Cargo
-           Where nome = Contador AND id != 1  -> retorna (então entra na exceção).
-
-           id = 1
-           nome = Administrador
-           select Obj
-           from Cargo
-           Where nome = Administrador AND id != 1 -> não retorna (não entra na exceção).
- */
+}
