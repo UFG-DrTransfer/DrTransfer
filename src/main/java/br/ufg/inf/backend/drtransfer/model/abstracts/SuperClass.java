@@ -35,6 +35,6 @@ public abstract class SuperClass implements Serializable {
 
     @JsonIgnore
     public boolean isNovo(){
-        return id == null;
+        return id == null || id == 0L;
     }
 }

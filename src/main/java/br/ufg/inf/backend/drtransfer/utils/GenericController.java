@@ -52,7 +52,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
         }
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteE(@PathVariable Long id) {
         try {
             service.deleteById(id);
