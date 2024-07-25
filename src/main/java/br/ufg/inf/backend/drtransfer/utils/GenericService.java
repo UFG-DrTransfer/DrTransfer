@@ -68,8 +68,9 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     }
 
     public E update(Long id, E entidade) throws DrTransferException {
+        entidade.setId(id);
         E entidadePersistida = findById(id);
-        padronizaCampos(entidadePersistida);
+        padronizaCampos(entidade);
         validaEntidade(entidade);
         atualizaVinculos(entidade);
         atualizarEntidade(entidadePersistida, entidade);
@@ -193,9 +194,9 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      * @param str
      * @return
      */
-    private static String capitalize(String str) {
+    private static String capitalize(String str) throws DrTransferException {
         if (str == null || str.isEmpty()) {
-            return str;
+             return str;
         }
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }

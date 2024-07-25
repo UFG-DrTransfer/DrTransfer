@@ -7,6 +7,8 @@ import br.ufg.inf.backend.drtransfer.repository.CargoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
 
 @Service
@@ -31,11 +33,10 @@ public class CargoService extends GenericService<Cargo, CargoRepository> {
 
     private void validaNome(Cargo entidade) throws DrTransferException {
         campoObrigatorio(entidade.getNome(), "Nome");
-        if (repository.findByNome(entidade.getNome()).isPresent()) {
+        if (repository.findByNomeAndIdNot(entidade.getNome(),entidade.getId()).isPresent()) {
             throw new DrTransferConflictException(CONFLICT, nomeClasse, "Nome");
         }
     }
-
     @Override
     protected void atualizaVinculos(Cargo entidade) {
     }

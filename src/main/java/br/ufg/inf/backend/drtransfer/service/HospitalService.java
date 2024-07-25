@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
+
 @Service
 public class HospitalService extends GenericService<Hospital, HospitalRepository> {
 
@@ -18,13 +20,14 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
     }
 
 	@Override
-	protected void padronizaCampos(Hospital entidade) {
-
+	protected void padronizaCampos(Hospital entidade) throws DrTransferException {
+		maiuscula(entidade, "nome");
 	}
 
 	@Override
 	protected void validaEntidade(Hospital entidade) throws DrTransferException {
-		campoObrigatorio(entidade.getName(),"Nome");
+
+		validaNome(entidade);
 		campoObrigatorio(entidade.getTelephoneNumber(),("Telefone"));
 		campoObrigatorio(entidade.getLongitude(),"Longitude");
 		campoObrigatorio(entidade.getLatitute(),"Latitude");
@@ -33,6 +36,14 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 		campoObrigatorio(entidade.getAvailableBeds(),"Leitos Disponíveis");
 
 	}
+
+	private void validaNome(Hospital entidade) throws DrTransferException {
+
+		campoObrigatorio(entidade.getName(),"Nome");
+		//TODO: validar caracteres mínimos
+		//TODO: validar se tem números no nome
+	}
+
 
 	@Override
 	protected void atualizaVinculos(Hospital entidade) {
