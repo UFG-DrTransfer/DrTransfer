@@ -107,7 +107,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      * @throws DrTransferException
      */
     protected void campoObrigatorio(Object objetoValidacao, String nomeCampo) throws DrTransferException {
-        if (objetoValidacao == null) {
+        if (objetoValidacao == null || (objetoValidacao instanceof String && ((String) objetoValidacao).isBlank())) {
             throw new DrTransferException(HttpStatus.BAD_REQUEST, CAMPO_OBRIGATORIO, nomeClasse, nomeCampo);
         }
     }
