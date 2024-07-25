@@ -4,6 +4,7 @@ import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Usuario;
 import br.ufg.inf.backend.drtransfer.repository.UsuarioRespository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,8 +39,8 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRespository> 
             campoObrigatorio(entidade.getSenha(), "Senha");
         }
         //Valida total caracteres minimo
-        if(entidade.getSenha().length() < 6){
-            throw new DrTransferException("Senha deve ter no mínimo 6 caracteres");
+        if(entidade.getSenha().length() <= 6){
+            throw new DrTransferException(HttpStatus.BAD_REQUEST,"Senha deve ter no mínimo 6 caracteres");
         }
         //Valida regex para senha
     }

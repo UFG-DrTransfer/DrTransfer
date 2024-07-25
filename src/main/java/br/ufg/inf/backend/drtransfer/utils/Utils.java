@@ -1,6 +1,7 @@
 package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
+import org.springframework.http.HttpStatus;
 
 import java.lang.reflect.Field;
 import java.text.Normalizer;
@@ -61,7 +62,7 @@ public abstract class Utils {
                 campo.set(entidade, removerEspacosDuplos((String) valor).toUpperCase());
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new DrTransferException("Erro ao tentar atualizar campo %s para maiuscula", nomeAtributo);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST,"Erro ao tentar atualizar campo %s para maiuscula", nomeAtributo);
         }
         return entidade;
     }

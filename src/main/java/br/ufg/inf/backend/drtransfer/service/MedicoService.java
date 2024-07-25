@@ -5,6 +5,7 @@ import br.ufg.inf.backend.drtransfer.model.Medico;
 import br.ufg.inf.backend.drtransfer.repository.MedicoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
@@ -42,14 +43,14 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
     protected void atualizaVinculos(Medico entidade) throws DrTransferException {
         if (entidade.getHospital() != null) {
             if (entidade.getHospital().isNovo()) {
-                throw new DrTransferException(ID_INVALIDO, "Hospital");
+                throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Hospital");
             } else {
                 entidade.setHospital(hospitalService.findByEntidade(entidade.getHospital()));
             }
         }
         if (entidade.getEspecialidade() != null) {
             if (entidade.getEspecialidade().isNovo()) {
-                throw new DrTransferException(ID_INVALIDO, "Especialidade");
+                throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Especialidade");
             } else {
                 entidade.setEspecialidade(especialidadeService.findByEntidade(entidade.getEspecialidade()));
             }
