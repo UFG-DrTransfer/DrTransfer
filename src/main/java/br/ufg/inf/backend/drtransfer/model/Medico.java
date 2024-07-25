@@ -1,6 +1,6 @@
 package br.ufg.inf.backend.drtransfer.model;
 
-import br.ufg.inf.backend.drtransfer.model.abstracts.Pessoa;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Medico extends Pessoa {
+public class Medico extends Funcionario {
 
     private String crm;
     @ManyToOne
