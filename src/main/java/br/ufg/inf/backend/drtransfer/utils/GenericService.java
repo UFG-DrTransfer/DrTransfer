@@ -21,6 +21,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     public static final String CAMPO_OBRIGATORIO = "%s contém o campo %s que é obrigatório.";
     public static final String CONFLICT = "%s já existe um cadastro com este %s";
     public static final String FALHA_BD = "Falha desconhecida. Contacte o suporte.";
+    public static final String ID_INVALIDO = "É necessário passar o identificador do(a) %s";
 
 
     //Dar nome as classes para o retorno das mensagens.
@@ -142,17 +143,6 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      * @param entidadeAtualizada entidade que contem os novos dados a serem SETADOS
      */
     protected abstract void atualizarEntidade(E entidadePersistida, E entidadeAtualizada) throws DrTransferException;
-
-
-//    /**
-//     * Método tem como objetivo de validar se um campo está preenchida, ou seja, não nulo e ter conteudo.
-//     *
-//     * @param textoEntrada texto a ser validado
-//     * @return true para caso estiver conteudo e false caso contrário.
-//     */
-//    public static boolean validaString(String textoEntrada) {
-//        return textoEntrada != null && !textoEntrada.isBlank();
-//    }
 
     /**
      * Método tem como objetivo de validar se um campo existe, .
