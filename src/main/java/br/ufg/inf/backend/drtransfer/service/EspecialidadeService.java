@@ -7,8 +7,12 @@ import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
+
 @Service
 public class EspecialidadeService extends GenericService<Especialidade, EspecialidadeRepository> {
+
+
 
     public EspecialidadeService() {
         super("Especialidade");
@@ -16,19 +20,18 @@ public class EspecialidadeService extends GenericService<Especialidade, Especial
 
 
     @Override
-    protected void padronizaCampos(Especialidade entidade) {
-
+    protected void padronizaCampos(Especialidade entidade) throws DrTransferException {
+        maiuscula(entidade, "nome");
+        maiuscula(entidade, "descricao");
     }
 
     @Override
-    protected void validaEntidade(Especialidade entidade) {
-        //TODO: nome obrigatorio
-        //TODO: descricao Obrigatória
+    protected void validaEntidade(Especialidade entidade) throws DrTransferException {
+        campoObrigatorio(entidade.getNome(), "Nome");
     }
 
-
     @Override
-    protected void atualizaVinculos(Especialidade entidade) {
+    protected void atualizaVinculos(Especialidade entidade) throws DrTransferException {
 
     }
 
