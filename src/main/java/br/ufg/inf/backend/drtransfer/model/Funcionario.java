@@ -20,4 +20,8 @@ public class Funcionario extends Pessoa {
     private Cargo cargo;
 //    private Hospital hospital;
 
+
+
+
+
 }
