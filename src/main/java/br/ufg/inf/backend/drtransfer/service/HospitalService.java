@@ -39,7 +39,7 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 
 	private void validaNome(Hospital entidade) throws DrTransferException {
 
-		campoObrigatorio(entidade.getName(),"Nome");
+		campoObrigatorio(entidade.getNome(),"Nome");
 		//TODO: validar caracteres mínimos
 		//TODO: validar se tem números no nome
 	}
@@ -53,7 +53,7 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 	@Override
 	protected void atualizarEntidade(Hospital entidadePersistida, Hospital entidadeAtualizada) throws DrTransferException {
 
-		atualizaCampo(entidadePersistida,entidadeAtualizada, "name");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "nome");
 		atualizaCampo(entidadePersistida,entidadeAtualizada, "email");
 		atualizaCampo(entidadePersistida,entidadeAtualizada, "telephoneNumber");
 		atualizaCampo(entidadePersistida,entidadeAtualizada, "temUti");

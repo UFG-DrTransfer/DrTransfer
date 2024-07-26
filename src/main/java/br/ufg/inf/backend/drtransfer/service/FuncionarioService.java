@@ -26,7 +26,7 @@ public class FuncionarioService extends GenericService<Funcionario, FuncionarioR
 
     @Override
     protected void padronizaCampos(Funcionario entidade) throws DrTransferException {
-        maiuscula(entidade, "nome");
+        //maiuscula(entidade, "nome");
 
     }
 

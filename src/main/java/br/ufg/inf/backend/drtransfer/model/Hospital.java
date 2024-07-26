@@ -21,7 +21,7 @@ import java.util.List;
 public class Hospital extends SuperClass {
 
 
-    private String name;
+    private String nome;
     private String telephoneNumber;
     private String email;
     private Double latitute;
