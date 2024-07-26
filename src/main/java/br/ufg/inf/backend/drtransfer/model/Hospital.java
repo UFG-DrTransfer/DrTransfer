@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class Hospital extends SuperClass {
     private Double longitude;
     private Integer availableBeds;
     private boolean temUti;
+    @OneToMany (mappedBy = "hospital")
+    private List<Funcionario> funcionarios;
 
 //    @OneToOne
 //    private Endereco endereco;

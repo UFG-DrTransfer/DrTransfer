@@ -22,8 +22,9 @@ public class Transferencia extends SuperClass {
     @Enumerated(EnumType.STRING)
     private MeioTransporte meioTransporte;
 
+
     private LocalDateTime horarioSaida;
-    private LocalDateTime horarioPrevisotChegada;
+    private LocalDateTime horarioPrevistoChegada;
 
     private Double distancia;
 //

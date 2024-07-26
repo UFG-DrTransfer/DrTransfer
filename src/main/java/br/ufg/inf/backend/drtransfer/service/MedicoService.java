@@ -6,9 +6,10 @@ import br.ufg.inf.backend.drtransfer.repository.MedicoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
-
+@Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
