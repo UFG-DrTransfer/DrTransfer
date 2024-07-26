@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @PostMapping
 @RestController
 @RequestMapping("/documentotransferencia")
+
 public class DocumentoTransferenciaController {
 
 
@@ -21,7 +22,6 @@ public class DocumentoTransferenciaController {
         List<DocumentoTransferencia> documentos = documentoTransferenciaService.obterTodosDocumentos();
         return ResponseEntity.ok(documentos);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<DocumentoTransferencia> obterDocumentoPorId(@PathVariable Long id) {

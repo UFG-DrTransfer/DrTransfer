@@ -19,4 +19,5 @@ public class DocumentoTransferencia extends SuperClass {
 //    private List procedimentosAcondicionamento;
 //    private List procedimentoRecebido;
 
+
 }
