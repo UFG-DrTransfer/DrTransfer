@@ -51,7 +51,6 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRespository> 
         atualizaCampo(entidadePersistida, entidadeAtualizada, "senha");
     }
 
-
     @Override
     protected void atualizaVinculos(Usuario entidade) {
 

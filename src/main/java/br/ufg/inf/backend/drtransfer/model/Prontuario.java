@@ -2,6 +2,7 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.Classificacao;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,4 +23,8 @@ public class Prontuario extends SuperClass {
     @JsonManagedReference
     @OneToMany(mappedBy = "prontuario", cascade = CascadeType.ALL)
     private List<MedicamentoPrescrito> medicamentoPrescrito;
+
+    @JsonBackReference
+    @OneToOne
+    private Paciente paciente;
 }
