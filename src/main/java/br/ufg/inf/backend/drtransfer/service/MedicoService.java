@@ -24,7 +24,7 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
     @Override
     protected void padronizaCampos(Medico entidade) throws DrTransferException {
-        maiuscula(entidade, "nome");
+//        maiuscula(entidade, "nome");
 
     }
 
