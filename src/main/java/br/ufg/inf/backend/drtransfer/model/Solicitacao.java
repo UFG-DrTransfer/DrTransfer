@@ -17,12 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Solicitacao extends SuperClass {
+
     private LocalDateTime horaSolicitacao;
     private String motivo;
 
-//    private Medico medico;
-//    private Paciente paciente;
-//
-//    private DocumentoTransferencia documento;
-//    private List<Especialidade> especialidadesRequisitada;
+    private Medico medico;
+    private Paciente paciente;
+
+    private DocumentoTransferencia documento;
+    private Especialidade especialidade;
 }

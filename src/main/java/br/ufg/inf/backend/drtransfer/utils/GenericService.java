@@ -1,15 +1,17 @@
 package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
-import br.ufg.inf.backend.drtransfer.exception.DrTransferNotFoundException;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@Service
 public abstract class GenericService<E extends SuperClass, R extends JpaRepository<E, Long>> {
 
     @Autowired
@@ -19,6 +21,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     public static final String CAMPO_OBRIGATORIO = "%s contém o campo %s que é obrigatório.";
     public static final String CONFLICT = "%s já existe um cadastro com este %s";
     public static final String FALHA_BD = "Falha desconhecida. Contacte o suporte.";
+    public static final String ID_INVALIDO = "É necessário passar o identificador do(a) %s";
 
 
     //Dar nome as classes para o retorno das mensagens.
@@ -30,8 +33,9 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
         return repository.findAll();
     }
 
-    public E findById(Long id) throws DrTransferNotFoundException {
-        return repository.findById(id).orElseThrow(() -> new DrTransferNotFoundException("%s com ID %d não encontrado", nomeClasse, id));
+    public E findById(Long id) throws DrTransferException {
+        return repository.findById(id)
+                .orElseThrow(() -> new DrTransferException(HttpStatus.NOT_FOUND, "%s com ID %d não encontrado", nomeClasse, id));
 //        Optional<E> optional = repository.findById(id);
 //        if (optional.isPresent()) {
 //            return optional.get();
@@ -58,7 +62,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
         try {
             return repository.save(entidade);
         } catch (Exception e) {
-            throw new DrTransferException(FALHA_BD, "salvar", nomeClasse);
+            throw new DrTransferException(HttpStatus.UNPROCESSABLE_ENTITY, FALHA_BD, "salvar", nomeClasse);
         }
     }
 
@@ -68,30 +72,31 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     }
 
     public E update(Long id, E entidade) throws DrTransferException {
+        entidade.setId(id);
         E entidadePersistida = findById(id);
-        padronizaCampos(entidadePersistida);
+        padronizaCampos(entidade);
         validaEntidade(entidade);
         atualizaVinculos(entidade);
         atualizarEntidade(entidadePersistida, entidade);
         try {
             return repository.save(entidadePersistida);
         } catch (Exception e) {
-            throw new DrTransferException(FALHA_BD, "atualizar", nomeClasse);
+            throw new DrTransferException(HttpStatus.UNPROCESSABLE_ENTITY, FALHA_BD, "atualizar", nomeClasse);
         }
     }
 
     public void deleteById(Long id) throws DrTransferException {
+        findById(id);
         try {
-            findById(id);
             repository.deleteById(id);
         } catch (Exception e) {
-            throw new DrTransferException(FALHA_BD, "deletar", nomeClasse);
+            throw new DrTransferException(HttpStatus.CONFLICT, FALHA_BD, "deletar", nomeClasse);
         }
     }
 
     protected void validaNulo(E entidade) throws DrTransferException {
         if (entidade == null) {
-            throw new DrTransferException("%s com não foi informado.", nomeClasse);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST,"%s com não foi informado.", nomeClasse);
         }
     }
 
@@ -103,8 +108,8 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      * @throws DrTransferException
      */
     protected void campoObrigatorio(Object objetoValidacao, String nomeCampo) throws DrTransferException {
-        if (objetoValidacao == null) {
-            throw new DrTransferException(CAMPO_OBRIGATORIO, nomeClasse, nomeCampo);
+        if (objetoValidacao == null || (objetoValidacao instanceof String && ((String) objetoValidacao).isBlank())) {
+            throw new DrTransferException(HttpStatus.BAD_REQUEST, CAMPO_OBRIGATORIO, nomeClasse, nomeCampo);
         }
     }
 
@@ -139,17 +144,6 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      */
     protected abstract void atualizarEntidade(E entidadePersistida, E entidadeAtualizada) throws DrTransferException;
 
-
-//    /**
-//     * Método tem como objetivo de validar se um campo está preenchida, ou seja, não nulo e ter conteudo.
-//     *
-//     * @param textoEntrada texto a ser validado
-//     * @return true para caso estiver conteudo e false caso contrário.
-//     */
-//    public static boolean validaString(String textoEntrada) {
-//        return textoEntrada != null && !textoEntrada.isBlank();
-//    }
-
     /**
      * Método tem como objetivo de validar se um campo existe, .
      *
@@ -183,7 +177,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
                 setter.invoke(entidadePersistida, valorAtualizado);
             }
         } catch (Exception e) {
-            throw new DrTransferException("Falha ao atualizar campo %s, entre em contato com suporte.", nomeAtributo);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST, "Falha ao atualizar campo %s, não foi encontrado o método get%s e set%s entre em contato com suporte.", nomeAtributo, capitalize(nomeAtributo), capitalize(nomeAtributo));
         }
     }
 
@@ -193,7 +187,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
      * @param str
      * @return
      */
-    private static String capitalize(String str) {
+    private static String capitalize(String str) throws DrTransferException {
         if (str == null || str.isEmpty()) {
             return str;
         }

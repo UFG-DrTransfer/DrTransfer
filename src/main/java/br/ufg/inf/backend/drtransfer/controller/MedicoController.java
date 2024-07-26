@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/medico")
-public class MedicoController {//extends GenericController<Medico, MedicoService> {
+public class MedicoController extends GenericController<Medico, MedicoService> {
 }

@@ -24,9 +24,13 @@ public class MedicamentoPrescrito extends SuperClass {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UnidadeDosagem unidadeDosagem;
+    @ManyToOne
+    private Drogas droga;
 
     @JsonBackReference
     @ManyToOne(optional = false)
     private Prontuario prontuario;
-//    private Drogas droga;
+
+
+
 }
