@@ -1,6 +1,8 @@
 package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -28,6 +30,7 @@ public class Hospital extends SuperClass {
     private Double longitude;
     private Integer availableBeds;
     private boolean temUti;
+    @JsonManagedReference
     @OneToMany (mappedBy = "hospital")
     private List<Funcionario> funcionarios;
 

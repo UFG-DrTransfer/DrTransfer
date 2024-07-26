@@ -50,7 +50,7 @@ public class FuncionarioService extends GenericService<Funcionario, FuncionarioR
         }
 
         if (entidade.getCargo () != null) {
-            if (entidade.getHospital().isNovo()) {
+            if (entidade.getCargo().isNovo()) {
                 throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Cargo");
             } else {
                 entidade.setCargo(cargoService.findByEntidade(entidade.getCargo()));
