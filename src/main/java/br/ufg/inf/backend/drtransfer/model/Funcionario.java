@@ -22,9 +22,4 @@ public class Funcionario extends Pessoa {
     @JsonBackReference
     @ManyToOne
     private Hospital hospital;
-
-
-
-
-
 }
