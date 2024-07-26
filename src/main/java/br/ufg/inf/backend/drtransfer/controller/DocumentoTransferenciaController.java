@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @PostMapping
 @RestController
 @RequestMapping("/documentotransferencia")
-
 public class DocumentoTransferenciaController {
 
 
