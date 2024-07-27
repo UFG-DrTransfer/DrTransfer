@@ -12,7 +12,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class MedicoRegulador extends Pessoa {
     private String crm;
 }

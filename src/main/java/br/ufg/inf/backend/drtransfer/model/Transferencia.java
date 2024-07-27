@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class Transferencia extends SuperClass {
     @Enumerated(EnumType.STRING)
     private MeioTransporte meioTransporte;

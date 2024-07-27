@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class Paciente extends Pessoa {
 
     private LocalDate dataNascimento;

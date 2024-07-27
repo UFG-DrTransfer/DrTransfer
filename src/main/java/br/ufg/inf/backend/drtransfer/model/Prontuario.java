@@ -16,7 +16,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class Prontuario extends SuperClass {
     @Enumerated(EnumType.STRING)
     private Classificacao classificacao;

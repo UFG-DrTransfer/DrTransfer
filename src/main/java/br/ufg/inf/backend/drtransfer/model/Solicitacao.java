@@ -15,7 +15,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class Solicitacao extends SuperClass {
 
     private LocalDateTime horaSolicitacao;

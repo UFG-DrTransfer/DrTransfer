@@ -16,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class Usuario extends SuperClass {
 
     @Column(unique = true, nullable = false)

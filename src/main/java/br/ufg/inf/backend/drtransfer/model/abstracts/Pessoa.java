@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public abstract class Pessoa extends SuperClass {
     @Column(nullable = false)
     private String nome;
