@@ -1,7 +1,10 @@
 package br.ufg.inf.backend.drtransfer.model.abstracts;
 
 
+import br.ufg.inf.backend.drtransfer.utils.SwaggerView;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,16 +28,22 @@ public abstract class SuperClass implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(SwaggerView.Put.class)
     private Long id;
-    @JsonIgnore
+
     @CreationTimestamp
+    @JsonView(SwaggerView.NaoEditavel.class)
     private LocalDateTime dataCriacao;
+
     @UpdateTimestamp
+    @JsonView(SwaggerView.NaoEditavel.class)
     private LocalDateTime dataAtualizacao;
+
+    @JsonView(SwaggerView.Put.class)
     private Boolean ativo = true;
 
     @JsonIgnore
-    public boolean isNovo(){
+    public boolean isNovo() {
         return id == null || id == 0L;
     }
 }

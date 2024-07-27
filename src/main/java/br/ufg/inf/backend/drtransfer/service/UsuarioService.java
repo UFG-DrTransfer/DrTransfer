@@ -23,15 +23,13 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRespository> 
     protected void validaEntidade(Usuario entidade) throws DrTransferException {
         validaLogin(entidade);
         validaSenha(entidade);
-
-//        if (!validaExistente(entidade.getLogin())) {
-//            throw new DrTransferException("Login deve ser preenchido");
-//        }
-
     }
     private void validaLogin(Usuario entidade) throws DrTransferException {
         campoObrigatorio(entidade.getLogin(), "Login");
-        //TODO validar login cadastrado
+        if ((entidade.isNovo() && repository.existsByLogin(entidade.getLogin()))
+                || (!entidade.isNovo() && repository.existsByLoginAndIdNot(entidade.getLogin(), entidade.getId()))) {
+            throw new DrTransferException(HttpStatus.CONFLICT, CONFLICT, nomeClasse, "Login");
+        }
     }
 
     private void validaSenha(Usuario entidade) throws DrTransferException {

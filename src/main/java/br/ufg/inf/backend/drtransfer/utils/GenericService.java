@@ -96,7 +96,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
 
     protected void validaNulo(E entidade) throws DrTransferException {
         if (entidade == null) {
-            throw new DrTransferException(HttpStatus.BAD_REQUEST,"%s com não foi informado.", nomeClasse);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST, "%s com não foi informado.", nomeClasse);
         }
     }
 
