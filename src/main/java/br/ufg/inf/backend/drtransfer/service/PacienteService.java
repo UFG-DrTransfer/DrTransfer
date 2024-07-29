@@ -6,6 +6,7 @@ import br.ufg.inf.backend.drtransfer.repository.PacienteRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import br.ufg.inf.backend.drtransfer.utils.formatador.FormatadorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -27,7 +28,10 @@ public class PacienteService extends GenericService<Paciente, PacienteRepository
     @Override
     protected void padronizaCampos(Paciente entidade) throws DrTransferException {
         maiuscula(entidade, "nome");
-        //String dataFormatada = FormatadorUtils.formataData(entidade.getDataNascimento());
+        if ((entidade.isNovo() && repository.existsByCpf(entidade.getCpf()))
+                || (!entidade.isNovo() && repository.existsByCpfAndIdNot(entidade.getCpf(), entidade.getId()))) {
+            throw new DrTransferException(HttpStatus.CONFLICT, CONFLICT, nomeClasse, "CPF");
+        }
     }
 
     @Override
@@ -41,6 +45,7 @@ public class PacienteService extends GenericService<Paciente, PacienteRepository
     protected void atualizaVinculos(Paciente entidade) throws DrTransferException {
         if(entidade.getProntuario() != null){
             if(entidade.getProntuario().isNovo()){
+                entidade.getProntuario().setPaciente(entidade);
                 prontuarioService.atualizaVinculos(entidade.getProntuario());
                 prontuarioService.validaEntidade(entidade.getProntuario());
             }else{
