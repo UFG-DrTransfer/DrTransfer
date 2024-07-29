@@ -20,6 +20,7 @@ public class Medico extends Funcionario {
 
     @Schema(description = "CRM", example = "15616GO")
     private String crm;
+
     @ManyToOne
     @JsonManagedReference
     @Schema(description = "Especialidade", example = "{ \"id\": 1}")

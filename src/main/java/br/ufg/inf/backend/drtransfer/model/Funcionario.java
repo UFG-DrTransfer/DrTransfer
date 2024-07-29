@@ -16,11 +16,10 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Funcionario extends Pessoa {
-    @Schema(description = "Cargo", example = "{ \"id\": 1}")
     @ManyToOne
     private Cargo cargo;
-    @Schema(description = "Hospital", example = "{ \"id\": 1}")
-    @JsonBackReference
+
     @ManyToOne
+    @JsonBackReference
     private Hospital hospital;
 }

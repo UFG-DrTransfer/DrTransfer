@@ -2,7 +2,9 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.UnidadeDosagem;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import br.ufg.inf.backend.drtransfer.utils.SwaggerView;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,27 +17,32 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicamentoPrescrito extends SuperClass {
+
+    @Column(nullable = false)
     @Schema(description = "Forma de administração", example = "1/24 horas")
-    @Column(nullable = false)
     private String posologia;
+
+    @Column(nullable = false)
     @Schema(description = "Dosagem", example = "5.0")
-    @Column(nullable = false)
     private Double dosagem;
-    @Schema(description = "Via administração", example = "Oral")
+
     @Column(nullable = false)
+    @Schema(description = "Via administração", example = "Oral")
     private String viaAdministracao;
-    @Schema(description = "Unidade Dosagem", example = "ml")
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Schema(description = "Unidade Dosagem", example = "ML")
     private UnidadeDosagem unidadeDosagem;
-    @Schema(description = "Medicamento")
+
     @ManyToOne
+    @Schema(description = "Medicamento")
     private Drogas droga;
 
     @JsonBackReference
     @ManyToOne(optional = false)
+    @JsonView(SwaggerView.NaoEditavel.class)
     private Prontuario prontuario;
-
 
 
 }

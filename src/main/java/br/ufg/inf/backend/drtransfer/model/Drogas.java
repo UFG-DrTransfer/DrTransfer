@@ -20,9 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Drogas extends SuperClass {
 
-    @Schema(description = "Nome", example = "Dipirona")
     @Column(nullable = false, unique = true)
+    @Schema(description = "Nome", example = "Dipirona")
     private String nome;
+
     @Schema(description = "Principio ativo", example = "Dipirado")
     private String principioAtivo;
 

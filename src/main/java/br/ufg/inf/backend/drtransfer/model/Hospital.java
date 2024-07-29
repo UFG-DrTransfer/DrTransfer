@@ -26,25 +26,28 @@ public class Hospital extends SuperClass {
 
     @Schema(description = "Nome", example = "HGG")
     private String nome;
+
     @Schema(description = "Telefone", example = "62 0000-0000")
     private String telephoneNumber;
+
     @Schema(description = "Email", example = "hospital@hgg.com")
     private String email;
+
     @Schema(description = "Latitude", example = "-16.54512313")
     private Double latitute;
+
     @Schema(description = "Longitude", example = "-14.45461223")
     private Double longitude;
+
     @Schema(description = "Quantidade de leitos disponíveis", example = "10")
     private Integer availableBeds;
+
     @Schema(description = "Existe UTI no hospital", example = "true")
     private boolean temUti;
-    @JsonView(SwaggerView.NaoEditavel.class)
+
     @JsonManagedReference
     @OneToMany (mappedBy = "hospital")
+    @JsonView(SwaggerView.NaoEditavel.class)
     private List<Funcionario> funcionarios;
 
-//    @OneToOne
-//    private Endereco endereco;
-//    @OneToMany(mappedBy = "hospital")
-//    private List<Medico> medicos;
 }

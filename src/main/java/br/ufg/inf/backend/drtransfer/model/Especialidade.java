@@ -22,6 +22,7 @@ import java.util.List;
 public class Especialidade extends SuperClass {
     @Schema(description = "Nome", example = "Cardiologia")
     private String nome;
+
     @Schema(description = "Descrição", example = "faz cirugia do coração")
     private String descricao;
 }

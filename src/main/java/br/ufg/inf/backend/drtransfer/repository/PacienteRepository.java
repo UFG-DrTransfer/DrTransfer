@@ -7,5 +7,22 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
+
+    /**
+     * Verifica se existe o nome salvo no BD
+     *
+     * @param cpf
+     * @return
+     */
+    boolean existsByCpf(String cpf);
+
+    /**
+     * Verifica se existe o nome que não tenha o id no BD
+     *
+     * @param cpf
+     * @param id
+     * @return
+     */
+    boolean existsByCpfAndIdNot(String cpf, Long id);
 }
 

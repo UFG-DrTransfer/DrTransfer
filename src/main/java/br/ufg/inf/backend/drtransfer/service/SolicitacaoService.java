@@ -44,6 +44,7 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
 
     @Override
     protected void atualizaVinculos(Solicitacao entidade) throws DrTransferException {
+
         if (entidade.getEspecialidade() != null) {
             if (entidade.getEspecialidade().isNovo()) {
                 throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Especialidade");
@@ -59,9 +60,9 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
                 entidade.setMedico(medicoService.findByEntidade(entidade.getMedico()));
             }
         }
+
         if (entidade.getPaciente() != null) {
             if (entidade.getPaciente().isNovo()) {
-
                 throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Paciente");
             } else {
                 entidade.setPaciente(pacienteService.findByEntidade(entidade.getPaciente()));
@@ -70,7 +71,6 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
 
         if (entidade.getDocumento() != null) {
             if (entidade.getDocumento().isNovo()) {
-
                 throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Documento de transferência");
             } else {
                 entidade.setDocumento(documentoTransferenciaService.findByEntidade(entidade.getDocumento()));
