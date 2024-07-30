@@ -1,5 +1,6 @@
 package br.ufg.inf.backend.drtransfer.model;
 
+import br.ufg.inf.backend.drtransfer.enumeradores.Sexo;
 import br.ufg.inf.backend.drtransfer.model.abstracts.Pessoa;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,4 +23,10 @@ public class Funcionario extends Pessoa {
     @ManyToOne
     @JsonBackReference
     private Hospital hospital;
+
+    public Funcionario(String nome, String cpf, String telefone, String email, Sexo sexo, Cargo cargo, Hospital hospital) {
+        super(nome, cpf, telefone, email, sexo);
+        this.cargo = cargo;
+        this.hospital = hospital;
+    }
 }

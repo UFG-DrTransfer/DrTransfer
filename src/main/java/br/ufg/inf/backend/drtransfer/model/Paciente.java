@@ -1,5 +1,6 @@
 package br.ufg.inf.backend.drtransfer.model;
 
+import br.ufg.inf.backend.drtransfer.enumeradores.Sexo;
 import br.ufg.inf.backend.drtransfer.enumeradores.TipoSanguineo;
 import br.ufg.inf.backend.drtransfer.model.abstracts.Pessoa;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,4 +31,11 @@ public class Paciente extends Pessoa {
     @JsonManagedReference
     @Schema(description = "Prontuario")
     private Prontuario prontuario;
+
+
+    public Paciente(String nome, String cpf, String telefone, String email, Sexo sexo, LocalDate dataNascimento, TipoSanguineo tipoSanguineo) {
+        super(nome, cpf, telefone, email, sexo);
+        this.dataNascimento = dataNascimento;
+        this.tipoSanguineo = tipoSanguineo;
+    }
 }
