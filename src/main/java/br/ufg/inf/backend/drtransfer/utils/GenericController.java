@@ -32,7 +32,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
     }
 
     @JsonView(SwaggerView.Post.class)
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> save(@RequestBody E entidade) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.save(entidade));
@@ -45,7 +45,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
     }
 
     @JsonView(SwaggerView.Put.class)
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody E entidade) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.update(id, entidade));
