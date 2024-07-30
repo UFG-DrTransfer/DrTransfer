@@ -31,7 +31,6 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
         }
     }
 
-    @JsonView(SwaggerView.Post.class)
     @PostMapping
     public ResponseEntity<?> save(@RequestBody E entidade) {
         try {
@@ -44,7 +43,6 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
         }
     }
 
-    @JsonView(SwaggerView.Put.class)
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody E entidade) {
         try {

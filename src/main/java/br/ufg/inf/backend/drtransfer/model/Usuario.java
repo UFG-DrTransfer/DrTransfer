@@ -1,16 +1,12 @@
 package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
-import br.ufg.inf.backend.drtransfer.utils.SwaggerView;
-import com.fasterxml.jackson.annotation.JsonView;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data

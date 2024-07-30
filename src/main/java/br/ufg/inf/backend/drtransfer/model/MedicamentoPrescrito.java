@@ -2,7 +2,6 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.UnidadeDosagem;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
-import br.ufg.inf.backend.drtransfer.utils.SwaggerView;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,7 +9,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
@@ -41,7 +39,6 @@ public class MedicamentoPrescrito extends SuperClass {
 
     @JsonBackReference
     @ManyToOne(optional = false)
-    @JsonView(SwaggerView.NaoEditavel.class)
     private Prontuario prontuario;
 
 
