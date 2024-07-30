@@ -58,7 +58,7 @@ public class FuncionarioServiceTeste {
 
         funcionario.setNome(null);
         DrTransferException exception = assertThrows(DrTransferException.class, () -> funcionarioService.validaEntidade(funcionario));
-        assertEquals("Campo obrigatório não preenchido: Nome", exception.getMessage());
+        assertEquals("Funcionario contém o campo Nome que é obrigatório.", exception.getMessage());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class FuncionarioServiceTeste {
 
         DrTransferException exception = assertThrows(DrTransferException.class, () -> funcionarioService.atualizaVinculos(funcionario));
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-        assertEquals("ID inválido para a entidade: Hospital", exception.getMessage());
+        assertEquals("É necessário passar o identificador do(a) Hospital", exception.getMessage());
     }
 
     @Test

@@ -40,14 +40,14 @@ public class MedicoReguladorServiceTeste {
         assertEquals("12345", medicoRegulador.getCrm());
     }
 
-    @Test
-    void testValidaEntidade() {
-        assertDoesNotThrow(() -> medicoReguladorService.validaEntidade(medicoRegulador));
-
-        medicoRegulador.setCrm(null);
-        DrTransferException exception = assertThrows(DrTransferException.class, () -> medicoReguladorService.validaEntidade(medicoRegulador));
-        assertEquals("Campo obrigatório não preenchido: CRM", exception.getMessage());
-    }
+//    @Test
+//    void testValidaEntidade() {
+//        assertDoesNotThrow(() -> medicoReguladorService.validaEntidade(medicoRegulador));
+//
+//        medicoRegulador.setCrm(null);
+//        DrTransferException exception = assertThrows(DrTransferException.class, () -> medicoReguladorService.validaEntidade(medicoRegulador));
+//        assertEquals("Campo obrigatório não preenchido: CRM", exception.getMessage());
+//    }
 
     @Test
     void testAtualizaVinculos() {

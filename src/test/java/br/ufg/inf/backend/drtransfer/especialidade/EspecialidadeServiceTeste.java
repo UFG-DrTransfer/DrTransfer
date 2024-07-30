@@ -46,7 +46,7 @@ public class EspecialidadeServiceTeste {
 
         especialidade.setNome(null);
         DrTransferException exception = assertThrows(DrTransferException.class, () -> especialidadeService.validaEntidade(especialidade));
-        assertEquals("Campo obrigatório não preenchido: Nome", exception.getMessage());
+        assertEquals("Especialidade contém o campo Nome que é obrigatório.", exception.getMessage());
     }
 
     @Test
