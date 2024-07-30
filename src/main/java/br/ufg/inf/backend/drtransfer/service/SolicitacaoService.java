@@ -71,7 +71,9 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
 
         if (entidade.getDocumento() != null) {
             if (entidade.getDocumento().isNovo()) {
-                throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Documento de transferência");
+                entidade.getDocumento().setSolicitacao(entidade);
+                documentoTransferenciaService.validaEntidade(entidade.getDocumento());
+                documentoTransferenciaService.atualizaVinculos(entidade.getDocumento());
             } else {
                 entidade.setDocumento(documentoTransferenciaService.findByEntidade(entidade.getDocumento()));
             }
