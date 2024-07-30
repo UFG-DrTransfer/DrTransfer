@@ -75,7 +75,10 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
                 documentoTransferenciaService.validaEntidade(entidade.getDocumento());
                 documentoTransferenciaService.atualizaVinculos(entidade.getDocumento());
             } else {
-                entidade.setDocumento(documentoTransferenciaService.findByEntidade(entidade.getDocumento()));
+                DocumentoTransferencia documentoPersistido = documentoTransferenciaService.findByEntidade(entidade.getDocumento());
+                documentoTransferenciaService.atualizarEntidade(documentoPersistido, entidade.getDocumento());
+                documentoTransferenciaService.validaEntidade(documentoPersistido);
+                entidade.setDocumento(documentoPersistido);
             }
         }
 
@@ -86,6 +89,10 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
             DrTransferException {
         atualizaCampo(entidadePersistida, entidadeAtualizada, "motivo");
         atualizaCampo(entidadePersistida, entidadeAtualizada, "horaSolicitacao");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "especialidade");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "medico");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "paciente");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "documento");
 
     }
 }

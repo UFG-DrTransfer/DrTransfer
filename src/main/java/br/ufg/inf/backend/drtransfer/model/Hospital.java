@@ -1,6 +1,7 @@
 package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClassAtivo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Hospital extends SuperClass {
+public class Hospital extends SuperClassAtivo {
 
     @Schema(description = "Nome", example = "HGG")
     private String nome;

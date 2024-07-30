@@ -2,6 +2,7 @@ package br.ufg.inf.backend.drtransfer.model;
 
 
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClassAtivo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +19,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Drogas extends SuperClass {
+public class Drogas extends SuperClassAtivo {
 
     @Column(nullable = false, unique = true)
     @Schema(description = "Nome", example = "Dipirona")

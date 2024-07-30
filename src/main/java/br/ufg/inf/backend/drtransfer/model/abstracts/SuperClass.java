@@ -32,7 +32,6 @@ public abstract class SuperClass implements Serializable {
     @UpdateTimestamp
     private LocalDateTime dataAtualizacao;
 
-    private Boolean ativo = true;
 
     @JsonIgnore
     public boolean isNovo() {

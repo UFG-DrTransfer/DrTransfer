@@ -2,6 +2,7 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.MeioTransporte;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClassAtivo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transferencia extends SuperClass {
+public class Transferencia extends SuperClassAtivo {
     @Enumerated(EnumType.STRING)
     private MeioTransporte meioTransporte;
 
