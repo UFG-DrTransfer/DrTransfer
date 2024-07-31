@@ -2,7 +2,6 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.Classificacao;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
-import br.ufg.inf.backend.drtransfer.utils.SwaggerView;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -19,6 +18,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
+
 public class Prontuario extends SuperClass {
 
     @Enumerated(EnumType.STRING)
@@ -32,6 +33,5 @@ public class Prontuario extends SuperClass {
 
     @OneToOne
     @JsonBackReference
-    @JsonView(SwaggerView.NaoEditavel.class)
     private Paciente paciente;
 }

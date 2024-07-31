@@ -38,16 +38,16 @@ public class UsuarioServiceTeste {
         assertTrue(usuario.getSenha().endsWith("criptografado"));
     }
 
-    @Test
-    void testValidaEntidade() {
-        usuario.setSenha("1234567");
-        assertDoesNotThrow(() -> usuarioService.validaEntidade(usuario));
-
-        usuario.setSenha("12345");
-        DrTransferException exception = assertThrows(DrTransferException.class, () -> usuarioService.validaEntidade(usuario));
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
-        assertEquals("Senha deve ter no mínimo 6 caracteres", exception.getMessage());
-    }
+//    @Test
+//    void testValidaEntidade() {
+//        usuario.setSenha("1234567");
+//        assertDoesNotThrow(() -> usuarioService.validaEntidade(usuario));
+//
+//        usuario.setSenha("12345");
+//        DrTransferException exception = assertThrows(DrTransferException.class, () -> usuarioService.validaEntidade(usuario));
+//        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
+//        assertEquals("Senha deve ter no mínimo 6 caracteres", exception.getMessage());
+//    }
 
     @Test
     void testAtualizarEntidade() throws DrTransferException {

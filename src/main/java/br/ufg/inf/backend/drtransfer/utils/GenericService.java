@@ -20,7 +20,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     protected final String nomeClasse;
 
     public static final String CAMPO_OBRIGATORIO = "%s contém o campo %s que é obrigatório.";
-    public static final String CONFLICT = "%s já existe um cadastro com este %s";
+    public static final String CONFLICT = "%s já está cadastrado com este %s";
     public static final String FALHA_BD = "Falha desconhecida. Contacte o suporte.";
     public static final String ID_INVALIDO = "É necessário passar o identificador do(a) %s";
 

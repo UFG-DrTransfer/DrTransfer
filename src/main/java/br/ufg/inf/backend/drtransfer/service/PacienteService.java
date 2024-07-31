@@ -4,12 +4,9 @@ import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Paciente;
 import br.ufg.inf.backend.drtransfer.repository.PacienteRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
-import br.ufg.inf.backend.drtransfer.utils.formatador.FormatadorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
 

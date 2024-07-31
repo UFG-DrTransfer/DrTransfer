@@ -1,5 +1,6 @@
 package br.ufg.inf.backend.drtransfer.service;
 
+import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.DocumentoTransferencia;
 import br.ufg.inf.backend.drtransfer.repository.DocumentoTransferenciaRepository;
 import br.ufg.inf.backend.drtransfer.repository.HospitalRepository;
@@ -19,8 +20,9 @@ public class DocumentoTransferenciaService extends GenericService<DocumentoTrans
 
 
     @Override
-    protected void atualizarEntidade(DocumentoTransferencia entidadePersistida, DocumentoTransferencia entidadeAtualizada) {
-
+    protected void atualizarEntidade(DocumentoTransferencia entidadePersistida, DocumentoTransferencia entidadeAtualizada) throws DrTransferException {
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "documento");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "observacao");
     }
 
     @Override

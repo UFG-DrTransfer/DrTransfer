@@ -71,9 +71,17 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
 
         if (entidade.getDocumento() != null) {
             if (entidade.getDocumento().isNovo()) {
-                throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Documento de transferência");
+                entidade.getDocumento().setSolicitacao(entidade);
+                documentoTransferenciaService.validaEntidade(entidade.getDocumento());
+                documentoTransferenciaService.atualizaVinculos(entidade.getDocumento());
             } else {
-                entidade.setDocumento(documentoTransferenciaService.findByEntidade(entidade.getDocumento()));
+                DocumentoTransferencia documentoPersistido = documentoTransferenciaService.findByEntidade(entidade.getDocumento());
+                if (entidade.isNovo() || documentoPersistido.getSolicitacao().getId() != entidade.getId()) {
+                    throw new DrTransferException(HttpStatus.BAD_REQUEST, "Este documento não pertence a essa solicitação.");
+                }
+                documentoTransferenciaService.atualizarEntidade(documentoPersistido, entidade.getDocumento());
+                documentoTransferenciaService.validaEntidade(documentoPersistido);
+                entidade.setDocumento(documentoPersistido);
             }
         }
 
@@ -84,6 +92,10 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
             DrTransferException {
         atualizaCampo(entidadePersistida, entidadeAtualizada, "motivo");
         atualizaCampo(entidadePersistida, entidadeAtualizada, "horaSolicitacao");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "especialidade");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "medico");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "paciente");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "documento");
 
     }
 }

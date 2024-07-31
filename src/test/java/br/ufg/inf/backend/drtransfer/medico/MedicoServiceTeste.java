@@ -4,7 +4,7 @@ import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Especialidade;
 import br.ufg.inf.backend.drtransfer.model.Hospital;
 import br.ufg.inf.backend.drtransfer.model.Medico;
-import br.ufg.inf.backend.drtransfer.repository.MedicoRepository;
+
 import br.ufg.inf.backend.drtransfer.service.EspecialidadeService;
 import br.ufg.inf.backend.drtransfer.service.HospitalService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 
-import static br.ufg.inf.backend.drtransfer.utils.GenericService.ID_INVALIDO;
+
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+
 
 @ExtendWith(MockitoExtension.class)
 public class MedicoServiceTeste {

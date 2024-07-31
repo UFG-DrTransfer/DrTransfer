@@ -1,20 +1,16 @@
 package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
-import br.ufg.inf.backend.drtransfer.utils.SwaggerView;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClassAtivo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 import java.util.List;
 
@@ -22,7 +18,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Hospital extends SuperClass {
+@SuperBuilder
+
+public class Hospital extends SuperClassAtivo {
 
     @Schema(description = "Nome", example = "HGG")
     private String nome;
@@ -47,7 +45,6 @@ public class Hospital extends SuperClass {
 
     @JsonManagedReference
     @OneToMany (mappedBy = "hospital")
-    @JsonView(SwaggerView.NaoEditavel.class)
     private List<Funcionario> funcionarios;
 
 }

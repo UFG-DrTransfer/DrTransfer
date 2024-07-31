@@ -16,8 +16,8 @@ public class MedicoReguladorService extends GenericService<MedicoRegulador, Medi
 
     @Override
     protected void padronizaCampos(MedicoRegulador entidade) throws DrTransferException {
-//        maiuscula(entidade, "nome");
-//        maiuscula(entidade, "crm");
+        maiuscula(entidade, "nome");
+        maiuscula(entidade, "crm");
     }
 
     @Override

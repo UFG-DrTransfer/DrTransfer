@@ -11,11 +11,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 @MappedSuperclass
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public abstract class Pessoa extends SuperClass {
+@SuperBuilder
+
+public abstract class Pessoa extends SuperClassAtivo {
 
     @Column(nullable = false)
     @Schema(description = "Nome", example = "Alexsandro")
@@ -34,4 +37,12 @@ public abstract class Pessoa extends SuperClass {
     @Enumerated(EnumType.STRING)
     @Schema(description = "Sexo", example = "MASCULINO")
     private Sexo sexo;
+
+    public Pessoa(String nome, String cpf, String telefone, String email, Sexo sexo) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+        this.sexo = sexo;
+    }
 }
