@@ -79,9 +79,9 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
         entidade.setId(id);
         E entidadePersistida = findById(id);
         padronizaCampos(entidade);
-        validaEntidade(entidade);
         atualizaVinculos(entidade);
         atualizarEntidade(entidadePersistida, entidade);
+        validaEntidade(entidadePersistida);
         try {
             return repository.save(entidadePersistida);
         } catch (Exception e) {

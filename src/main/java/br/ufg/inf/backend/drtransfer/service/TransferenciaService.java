@@ -2,12 +2,16 @@ package br.ufg.inf.backend.drtransfer.service;
 
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
+import br.ufg.inf.backend.drtransfer.model.Hospital;
 import br.ufg.inf.backend.drtransfer.model.Transferencia;
 import br.ufg.inf.backend.drtransfer.repository.TransferenciaRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 public class TransferenciaService extends GenericService<Transferencia, TransferenciaRepository> {
@@ -18,6 +22,8 @@ public class TransferenciaService extends GenericService<Transferencia, Transfer
     private MedicoService medicoService;
     @Autowired
     private MedicoReguladorService medicoReguladorService;
+    @Autowired
+    private RouteService routeService;
 
 
     public TransferenciaService(MedicoReguladorService medicoReguladorService) {
@@ -37,11 +43,22 @@ public class TransferenciaService extends GenericService<Transferencia, Transfer
         campoObrigatorio(entidade.getSolicitacao(), "Solicitacao");
         campoObrigatorio(entidade.getMedicoRegulador(), "Medico Regulador");
         campoObrigatorio(entidade.getMedicoDestino(), "Médico destino");
-
+        Hospital origem = entidade.getHospitalOrigem();
+        Hospital destino = entidade.getHospitalDestino();
+        Map<String, Long> rotas = routeService.getRoute(origem.getLatitute(), origem.getLongitude(), destino.getLatitute(), destino.getLongitude());
+        if (rotas != null) {
+            Long distancia = rotas.get("distancia");
+            long duracao = rotas.get("duracao");
+            entidade.setDistancia(distancia.doubleValue() / 1000);
+            System.out.printf("Distancia: ", distancia);
+            LocalDateTime horaSaida = entidade.getHorarioSaida();
+            LocalDateTime horarioPrevistoChegada = horaSaida.plusSeconds(duracao);
+            entidade.setHorarioPrevistoChegada(horarioPrevistoChegada);
+            System.out.printf("Horario chegada: ", horarioPrevistoChegada);
+        }
     }
 
     @Override
-
     protected void atualizaVinculos(Transferencia entidade) throws DrTransferException {
         if (entidade.getSolicitacao() != null) {
             if (entidade.getSolicitacao().isNovo()) {
@@ -80,8 +97,8 @@ public class TransferenciaService extends GenericService<Transferencia, Transfer
     protected void atualizarEntidade(Transferencia entidadePersistida, Transferencia entidadeAtualizada) throws DrTransferException {
         atualizaCampo(entidadePersistida, entidadeAtualizada, "meioTransporte");
         atualizaCampo(entidadePersistida, entidadeAtualizada, "horarioSaida");
-//        atualizaCampo(entidadePersistida, entidadeAtualizada, "horarioPrevistoChegada");
-//        atualizaCampo(entidadePersistida, entidadeAtualizada, "distancia");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "horarioPrevistoChegada");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "distancia");
         atualizaCampo(entidadePersistida, entidadeAtualizada, "medicoRegulador");
         atualizaCampo(entidadePersistida, entidadeAtualizada, "medicoDestino");
         atualizaCampo(entidadePersistida, entidadeAtualizada, "hospitalDestino");
