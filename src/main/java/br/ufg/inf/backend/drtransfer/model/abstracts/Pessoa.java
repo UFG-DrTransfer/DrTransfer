@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Data
 @NoArgsConstructor
+@SuperBuilder
+
 public abstract class Pessoa extends SuperClassAtivo {
 
     @Column(nullable = false)

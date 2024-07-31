@@ -16,6 +16,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
+
 public class Funcionario extends Pessoa {
     @ManyToOne
     private Cargo cargo;

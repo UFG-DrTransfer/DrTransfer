@@ -32,7 +32,9 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
     @Override
     protected void validaEntidade(Medico entidade) throws DrTransferException {
         campoObrigatorio(entidade.getNome(), "Nome");
-        campoObrigatorio(entidade.getNome(), "CRM");
+        campoObrigatorio(entidade.getCrm(), "CRM");
+        campoObrigatorio(entidade.getHospital(), "Hospital");
+        campoObrigatorio(entidade.getEspecialidade(), "Especialidade");
         validaCpf(entidade);
     }
 

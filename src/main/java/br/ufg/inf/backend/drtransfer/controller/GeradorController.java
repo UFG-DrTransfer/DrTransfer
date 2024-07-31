@@ -36,10 +36,16 @@ public class GeradorController {
     private PacienteService pacienteService;
 
 
+
+
     @GetMapping
     public ResponseEntity<?> setData() throws DrTransferException {
-        Cargo cargo = new Cargo("Medico");
+        //Cargo cargo = new Cargo("Medico");
+        Cargo cargo = Cargo.builder().nome("Professor1").build();
         cargoService.save(cargo);
+
+//        Cargo cargo = cargoService.findById(1L);
+//        Especialidade especialidade = especialidadeService.findById(1L);
 
         Especialidade especialidade = new Especialidade("Cardiologia", "Cuidado do coracao");
         especialidadeService.save(especialidade);
@@ -50,8 +56,13 @@ public class GeradorController {
         Medico medico = new Medico ("Alexsandro", "999.999.999-99", "62 9999-9999", "alexsandro@hogwarts.medic", Sexo.MASCULINO, cargo, hospital, "15616GO", especialidade);
         medicoService.save(medico);
 
+        Medico medico2 = Medico.builder().nome("MedicoBuilder").cpf("8888888").crm("999999").hospital(hospital).especialidade(especialidade).build();
+        medicoService.save(medico2);
+
         Paciente paciente = new Paciente("Jonh", "999.999.999-99", "62 9999-9999", "john@hogwarts.medic", Sexo.MASCULINO, LocalDate.of(1977, 7, 2), TipoSanguineo.B_NEGATIVO);
         pacienteService.save(paciente);
+
+
 
         return ResponseEntity.ok().build();
     }

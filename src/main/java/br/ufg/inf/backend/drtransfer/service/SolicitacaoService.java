@@ -76,6 +76,9 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
                 documentoTransferenciaService.atualizaVinculos(entidade.getDocumento());
             } else {
                 DocumentoTransferencia documentoPersistido = documentoTransferenciaService.findByEntidade(entidade.getDocumento());
+                if (entidade.isNovo() || documentoPersistido.getSolicitacao().getId() != entidade.getId()) {
+                    throw new DrTransferException(HttpStatus.BAD_REQUEST, "Este documento não pertence a essa solicitação.");
+                }
                 documentoTransferenciaService.atualizarEntidade(documentoPersistido, entidade.getDocumento());
                 documentoTransferenciaService.validaEntidade(documentoPersistido);
                 entidade.setDocumento(documentoPersistido);

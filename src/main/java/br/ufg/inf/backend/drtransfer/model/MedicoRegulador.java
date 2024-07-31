@@ -13,6 +13,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
+
 public class MedicoRegulador extends Pessoa {
 
     @Schema(description = "CRM", example = "15616GO")

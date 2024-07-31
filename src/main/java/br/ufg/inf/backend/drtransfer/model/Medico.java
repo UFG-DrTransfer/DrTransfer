@@ -7,11 +7,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class Medico extends Funcionario {
 
     @Schema(description = "CRM", example = "15616GO")

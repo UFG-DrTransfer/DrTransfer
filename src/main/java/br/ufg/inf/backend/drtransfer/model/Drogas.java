@@ -19,6 +19,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class Drogas extends SuperClassAtivo {
 
     @Column(nullable = false, unique = true)

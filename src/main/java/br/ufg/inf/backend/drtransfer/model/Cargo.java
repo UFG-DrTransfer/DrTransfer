@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class Cargo extends SuperClassAtivo {
 
     @Schema(description = "Cargo", example = "Médico")
