@@ -48,13 +48,16 @@ public class TransferenciaService extends GenericService<Transferencia, Transfer
         Map<String, Long> rotas = routeService.getRoute(origem.getLatitute(), origem.getLongitude(), destino.getLatitute(), destino.getLongitude());
         if (rotas != null) {
             Long distancia = rotas.get("distancia");
-            long duracao = rotas.get("duracao");
-            entidade.setDistancia(distancia.doubleValue() / 1000);
-            System.out.printf("Distancia: ", distancia);
+            entidade.setDistancia(distancia.doubleValue());
+            long duracao;
+            if (entidade.getMeioTransporte().isTerrestre()) {
+                duracao = rotas.get("duracao");
+            } else {
+                duracao = (long) (distancia / entidade.getMeioTransporte().getMetroPorSegundo());
+            }
             LocalDateTime horaSaida = entidade.getHorarioSaida();
             LocalDateTime horarioPrevistoChegada = horaSaida.plusSeconds(duracao);
             entidade.setHorarioPrevistoChegada(horarioPrevistoChegada);
-            System.out.printf("Horario chegada: ", horarioPrevistoChegada);
         }
     }
 
