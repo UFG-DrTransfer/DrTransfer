@@ -6,12 +6,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Data

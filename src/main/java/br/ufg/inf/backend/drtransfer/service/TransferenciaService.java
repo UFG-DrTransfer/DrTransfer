@@ -34,7 +34,6 @@ public class TransferenciaService extends GenericService<Transferencia, Transfer
     @Override
     protected void validaEntidade(Transferencia entidade) throws DrTransferException {
         campoObrigatorio(entidade.getMeioTransporte(), "Meio de Transporte");
-        campoObrigatorio(entidade.getHorarioSaida(), "Horário de saída");
         campoObrigatorio(entidade.getSolicitacao(), "Solicitacao");
         campoObrigatorio(entidade.getMedicoRegulador(), "Medico Regulador");
         campoObrigatorio(entidade.getMedicoDestino(), "Médico destino");

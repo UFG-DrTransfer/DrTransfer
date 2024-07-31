@@ -35,8 +35,8 @@ public class GeradorController {
     @Autowired
     private PacienteService pacienteService;
 
-
-
+    @Autowired
+    private SolicitacaoService solicitacaoService;
 
     @GetMapping
     public ResponseEntity<?> setData() throws DrTransferException {
@@ -61,6 +61,10 @@ public class GeradorController {
 
         Paciente paciente = new Paciente("Jonh", "999.999.999-99", "62 9999-9999", "john@hogwarts.medic", Sexo.MASCULINO, LocalDate.of(1977, 7, 2), TipoSanguineo.B_NEGATIVO);
         pacienteService.save(paciente);
+
+        DocumentoTransferencia documentoTransferencia = DocumentoTransferencia.builder().documento("documento1").observacao("observando").build();
+        Solicitacao solicitacao = Solicitacao.builder().documento(documentoTransferencia).medico(medico).especialidade(especialidade).paciente(paciente).build();
+        solicitacaoService.save(solicitacao);
 
 
 
