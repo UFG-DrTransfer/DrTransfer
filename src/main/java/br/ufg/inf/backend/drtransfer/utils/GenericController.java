@@ -2,7 +2,6 @@ package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//Generic Controller < Entidade estende SuperClass, Service extende de GenericService
 public abstract class GenericController<E extends SuperClass, S extends GenericService<E, ? extends JpaRepository<E, Long>>> {
 
     @Autowired

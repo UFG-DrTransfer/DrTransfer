@@ -20,8 +20,9 @@ public class Transferencia extends SuperClassAtivo {
     @Enumerated(EnumType.STRING)
     private MeioTransporte meioTransporte;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime horarioSaida;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime horarioPrevistoChegada;
 
     private Double distancia;
