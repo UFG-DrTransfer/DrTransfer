@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-
 public abstract class SuperClassAtivo extends SuperClass {
     private Boolean ativo = true;
 }

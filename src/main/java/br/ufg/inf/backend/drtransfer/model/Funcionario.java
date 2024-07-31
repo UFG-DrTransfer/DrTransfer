@@ -28,12 +28,4 @@ public class Funcionario extends Pessoa {
         this.cargo = cargo;
         this.hospital = hospital;
     }
-
-    @Override
-    public String toString() {
-        return "Funcionario{" +
-                "cargo=" + cargo +
-                ", hospital=" + hospital +
-                '}';
-    }
 }

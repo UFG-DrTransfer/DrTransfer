@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @NoArgsConstructor
 @SuperBuilder
-
 public abstract class Pessoa extends SuperClassAtivo {
 
     @Column(nullable = false)

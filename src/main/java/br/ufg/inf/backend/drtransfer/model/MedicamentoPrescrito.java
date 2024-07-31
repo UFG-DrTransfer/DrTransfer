@@ -16,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-
 public class MedicamentoPrescrito extends SuperClass {
 
     @Column(nullable = false)

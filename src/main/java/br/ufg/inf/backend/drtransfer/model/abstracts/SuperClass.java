@@ -2,7 +2,6 @@ package br.ufg.inf.backend.drtransfer.model.abstracts;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +21,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-
 public abstract class SuperClass implements Serializable {
 
     @Id
