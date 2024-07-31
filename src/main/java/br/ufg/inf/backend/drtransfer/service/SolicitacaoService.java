@@ -1,15 +1,15 @@
 package br.ufg.inf.backend.drtransfer.service;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
-import br.ufg.inf.backend.drtransfer.model.*;
+import br.ufg.inf.backend.drtransfer.model.DocumentoTransferencia;
+import br.ufg.inf.backend.drtransfer.model.Solicitacao;
 import br.ufg.inf.backend.drtransfer.repository.SolicitacaoRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
-import br.ufg.inf.backend.drtransfer.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -76,7 +76,7 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
                 documentoTransferenciaService.atualizaVinculos(entidade.getDocumento());
             } else {
                 DocumentoTransferencia documentoPersistido = documentoTransferenciaService.findByEntidade(entidade.getDocumento());
-                if (entidade.isNovo() || documentoPersistido.getSolicitacao().getId() != entidade.getId()) {
+                if (entidade.isNovo() || !Objects.equals(documentoPersistido.getSolicitacao().getId(), entidade.getId())) {
                     throw new DrTransferException(HttpStatus.BAD_REQUEST, "Este documento não pertence a essa solicitação.");
                 }
                 documentoTransferenciaService.atualizarEntidade(documentoPersistido, entidade.getDocumento());
