@@ -4,7 +4,6 @@ import br.ufg.inf.backend.drtransfer.enumeradores.Classificacao;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-
 public class Prontuario extends SuperClass {
 
     @Enumerated(EnumType.STRING)

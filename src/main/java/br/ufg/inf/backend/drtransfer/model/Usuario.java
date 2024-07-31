@@ -1,6 +1,5 @@
 package br.ufg.inf.backend.drtransfer.model;
 
-import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClassAtivo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
@@ -15,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-
 public class Usuario extends SuperClassAtivo {
 
     @Column(unique = true, nullable = false)

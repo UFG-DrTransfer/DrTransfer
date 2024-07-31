@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-
 public class Especialidade extends SuperClassAtivo {
     @Schema(description = "Nome", example = "Cardiologia")
     private String nome;

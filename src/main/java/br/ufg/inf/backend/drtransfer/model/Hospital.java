@@ -19,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-
 public class Hospital extends SuperClassAtivo {
 
     @Schema(description = "Nome", example = "HGG")
