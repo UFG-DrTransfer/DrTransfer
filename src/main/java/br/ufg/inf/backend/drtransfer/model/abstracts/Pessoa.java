@@ -6,18 +6,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Data
 @NoArgsConstructor
 @SuperBuilder
-
 public abstract class Pessoa extends SuperClassAtivo {
 
     @Column(nullable = false)
@@ -36,7 +32,7 @@ public abstract class Pessoa extends SuperClassAtivo {
 
     @Enumerated(EnumType.STRING)
     @Schema(description = "Sexo", example = "MASCULINO")
-    private Sexo sexo;
+    private Sexo sexo = Sexo.NAO_INFORMADO;
 
     public Pessoa(String nome, String cpf, String telefone, String email, Sexo sexo) {
         this.nome = nome;

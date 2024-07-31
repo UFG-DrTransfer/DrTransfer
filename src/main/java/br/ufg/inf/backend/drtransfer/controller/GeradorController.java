@@ -35,8 +35,8 @@ public class GeradorController {
     @Autowired
     private PacienteService pacienteService;
 
-
-
+    @Autowired
+    private SolicitacaoService solicitacaoService;
 
     @GetMapping
     public ResponseEntity<?> setData() throws DrTransferException {
@@ -50,10 +50,13 @@ public class GeradorController {
         Especialidade especialidade = new Especialidade("Cardiologia", "Cuidado do coracao");
         especialidadeService.save(especialidade);
 
-        Hospital hospital = new Hospital("Santa Casa", "111111111", "hospital@hgg.com", -16.54512313, -14.45461223, 10, true, new ArrayList<>());
+        Hospital hospital = new Hospital("Santa Casa", "111111111", "hospital@hgg.com", -16.689023095791725, -49.28920555578136, 10, true, new ArrayList<>());
         hospitalService.save(hospital);
+        Hospital hospital2 = new Hospital("Hugol", "22222222", "hospital@hugol.com", -16.646997523824627, -49.33789408889512, 20, true, new ArrayList<>());
+        hospitalService.save(hospital2);
 
-        Medico medico = new Medico ("Alexsandro", "999.999.999-99", "62 9999-9999", "alexsandro@hogwarts.medic", Sexo.MASCULINO, cargo, hospital, "15616GO", especialidade);
+
+        Medico medico = new Medico("Alexsandro", "999.999.999-99", "62 9999-9999", "alexsandro@hogwarts.medic", Sexo.MASCULINO, cargo, hospital, "15616GO", especialidade);
         medicoService.save(medico);
 
         Medico medico2 = Medico.builder().nome("MedicoBuilder").cpf("8888888").crm("999999").hospital(hospital).especialidade(especialidade).build();
@@ -62,6 +65,9 @@ public class GeradorController {
         Paciente paciente = new Paciente("Jonh", "999.999.999-99", "62 9999-9999", "john@hogwarts.medic", Sexo.MASCULINO, LocalDate.of(1977, 7, 2), TipoSanguineo.B_NEGATIVO);
         pacienteService.save(paciente);
 
+        DocumentoTransferencia documentoTransferencia = DocumentoTransferencia.builder().documento("documento1").observacao("observando").build();
+        Solicitacao solicitacao = Solicitacao.builder().documento(documentoTransferencia).medico(medico).especialidade(especialidade).paciente(paciente).build();
+        solicitacaoService.save(solicitacao);
 
 
         return ResponseEntity.ok().build();
