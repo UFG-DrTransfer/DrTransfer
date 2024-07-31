@@ -1,14 +1,15 @@
 package br.ufg.inf.backend.drtransfer.enumeradores;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public enum UnidadeDosagem {
-    ML("ml", "militros"),
+    CP("cp", "comprimido"),
     G("g", "gramas"),
-    CP("cp", "comprimido");
+    ML("ml", "militros");
 
     private final String sigla;
     private final String descricao;

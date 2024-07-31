@@ -2,11 +2,11 @@ package br.ufg.inf.backend.drtransfer.utils;
 
 import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
     @Autowired
     protected S service;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<?> getAll() {
         try {
             List<E> entidades = service.findAll();

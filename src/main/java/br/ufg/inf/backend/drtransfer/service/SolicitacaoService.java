@@ -44,6 +44,7 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
 
     @Override
     protected void atualizaVinculos(Solicitacao entidade) throws DrTransferException {
+
         if (entidade.getEspecialidade() != null) {
             if (entidade.getEspecialidade().isNovo()) {
                 throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Especialidade");
@@ -59,9 +60,9 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
                 entidade.setMedico(medicoService.findByEntidade(entidade.getMedico()));
             }
         }
+
         if (entidade.getPaciente() != null) {
             if (entidade.getPaciente().isNovo()) {
-
                 throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Paciente");
             } else {
                 entidade.setPaciente(pacienteService.findByEntidade(entidade.getPaciente()));
@@ -70,10 +71,17 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
 
         if (entidade.getDocumento() != null) {
             if (entidade.getDocumento().isNovo()) {
-
-                throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, "Documento de transferência");
+                entidade.getDocumento().setSolicitacao(entidade);
+                documentoTransferenciaService.validaEntidade(entidade.getDocumento());
+                documentoTransferenciaService.atualizaVinculos(entidade.getDocumento());
             } else {
-                entidade.setDocumento(documentoTransferenciaService.findByEntidade(entidade.getDocumento()));
+                DocumentoTransferencia documentoPersistido = documentoTransferenciaService.findByEntidade(entidade.getDocumento());
+                if (entidade.isNovo() || documentoPersistido.getSolicitacao().getId() != entidade.getId()) {
+                    throw new DrTransferException(HttpStatus.BAD_REQUEST, "Este documento não pertence a essa solicitação.");
+                }
+                documentoTransferenciaService.atualizarEntidade(documentoPersistido, entidade.getDocumento());
+                documentoTransferenciaService.validaEntidade(documentoPersistido);
+                entidade.setDocumento(documentoPersistido);
             }
         }
 
@@ -84,6 +92,10 @@ public class SolicitacaoService extends GenericService<Solicitacao, SolicitacaoR
             DrTransferException {
         atualizaCampo(entidadePersistida, entidadeAtualizada, "motivo");
         atualizaCampo(entidadePersistida, entidadeAtualizada, "horaSolicitacao");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "especialidade");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "medico");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "paciente");
+        atualizaCampo(entidadePersistida, entidadeAtualizada, "documento");
 
     }
 }

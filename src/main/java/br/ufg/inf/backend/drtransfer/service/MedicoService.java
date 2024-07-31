@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
+
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
@@ -24,14 +25,25 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
 
     @Override
     protected void padronizaCampos(Medico entidade) throws DrTransferException {
-        maiuscula(entidade, "nome");
+//        maiuscula(entidade, "nome");
 
     }
 
     @Override
     protected void validaEntidade(Medico entidade) throws DrTransferException {
         campoObrigatorio(entidade.getNome(), "Nome");
-        campoObrigatorio(entidade.getNome(), "CRM");
+        campoObrigatorio(entidade.getCrm(), "CRM");
+        campoObrigatorio(entidade.getHospital(), "Hospital");
+        campoObrigatorio(entidade.getEspecialidade(), "Especialidade");
+        validaCpf(entidade);
+    }
+
+    private void validaCpf(Medico entidade) throws DrTransferException {
+        campoObrigatorio(entidade.getCpf(), "Cpf");
+        if ((entidade.isNovo() && repository.existsByCpf(entidade.getCpf()))
+                || (!entidade.isNovo() && repository.existsByCpfAndIdNot(entidade.getCpf(), entidade.getId()))) {
+            throw new DrTransferException(HttpStatus.CONFLICT, CONFLICT, nomeClasse, "CPF");
+        }
     }
 
     @Override

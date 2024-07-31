@@ -55,16 +55,30 @@ public abstract class Utils {
      */
     public static <T> T maiuscula(T entidade, String nomeAtributo) throws DrTransferException {
         try {
-            Field campo = entidade.getClass().getDeclaredField(nomeAtributo);
-            campo.setAccessible(true);
-            Object valor = campo.get(entidade);
-            if (valor instanceof String) {
-                campo.set(entidade, removerEspacosDuplos((String) valor).toUpperCase());
+            Field campo = getField(entidade.getClass(), nomeAtributo);
+            if (campo != null) {
+                campo.setAccessible(true);
+                Object valor = campo.get(entidade);
+                if (valor instanceof String) {
+                    campo.set(entidade, removerEspacosDuplos((String) valor).toUpperCase());
+                }
+            } else {
+                throw new DrTransferException(HttpStatus.BAD_REQUEST, "Campo %s não encontrado", nomeAtributo);
             }
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new DrTransferException(HttpStatus.BAD_REQUEST,"Erro ao tentar atualizar campo %s para maiuscula", nomeAtributo);
+        } catch (IllegalAccessException e) {
+            throw new DrTransferException(HttpStatus.BAD_REQUEST, "Erro ao tentar atualizar campo %s para maiuscula", nomeAtributo);
         }
         return entidade;
     }
 
+    private static Field getField(Class<?> clazz, String nomeAtributo) {
+        while (clazz != null) {
+            try {
+                return clazz.getDeclaredField(nomeAtributo);
+            } catch (NoSuchFieldException e) {
+                clazz = clazz.getSuperclass();
+            }
+        }
+        return null;
+    }
 }

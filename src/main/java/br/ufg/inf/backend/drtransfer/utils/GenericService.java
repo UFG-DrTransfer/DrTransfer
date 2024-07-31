@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.function.Function;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
@@ -19,7 +20,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
     protected final String nomeClasse;
 
     public static final String CAMPO_OBRIGATORIO = "%s contém o campo %s que é obrigatório.";
-    public static final String CONFLICT = "%s já existe um cadastro com este %s";
+    public static final String CONFLICT = "%s já está cadastrado com este %s";
     public static final String FALHA_BD = "Falha desconhecida. Contacte o suporte.";
     public static final String ID_INVALIDO = "É necessário passar o identificador do(a) %s";
 
@@ -96,7 +97,7 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
 
     protected void validaNulo(E entidade) throws DrTransferException {
         if (entidade == null) {
-            throw new DrTransferException(HttpStatus.BAD_REQUEST,"%s com não foi informado.", nomeClasse);
+            throw new DrTransferException(HttpStatus.BAD_REQUEST, "%s com não foi informado.", nomeClasse);
         }
     }
 
@@ -178,6 +179,41 @@ public abstract class GenericService<E extends SuperClass, R extends JpaReposito
             }
         } catch (Exception e) {
             throw new DrTransferException(HttpStatus.BAD_REQUEST, "Falha ao atualizar campo %s, não foi encontrado o método get%s e set%s entre em contato com suporte.", nomeAtributo, capitalize(nomeAtributo), capitalize(nomeAtributo));
+        }
+    }
+
+    public static <E extends SuperClass, T extends SuperClass> void atualizaCampo(E entidade,
+                                                                                  Function<E, T> getter,
+                                                                                  GenericService<T, ?> service) throws DrTransferException {
+        T valorAtual = getter.apply(entidade);
+        if (valorAtual != null) {
+            try {
+                Method isNovoMethod = valorAtual.getClass().getMethod("isNovo");
+                boolean isNovo = (boolean) isNovoMethod.invoke(valorAtual);
+                if (isNovo) {
+                    throw new DrTransferException(HttpStatus.BAD_REQUEST, ID_INVALIDO, valorAtual.getClass().getSimpleName());
+                } else {
+                    // Encontrar o método getter na entidade
+                    Method getterMethod = entidade.getClass().getMethod(getter.getClass().getMethods()[0].getName());
+
+                    // Encontrar o nome do campo a partir do método getter
+                    String getterName = getterMethod.getName();
+                    String fieldName = getterName.startsWith("get")
+                            ? getterName.substring(3)
+                            : getterName.substring(2);
+
+                    // Capitalizar a primeira letra do campo
+                    String setterName = "set" + fieldName;
+
+                    // Obter o método setter correspondente na entidade
+                    Method setter = entidade.getClass().getMethod(setterName, valorAtual.getClass());
+
+                    // Invocar o método setter para atualizar o campo na entidade
+                    setter.invoke(entidade, service.findByEntidade(valorAtual));
+                }
+            } catch (Exception e) {
+                throw new DrTransferException(HttpStatus.BAD_REQUEST, "Falha ao atualizar campo: " + valorAtual.getClass().getSimpleName(), e);
+            }
         }
     }
 

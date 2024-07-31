@@ -7,4 +7,21 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRespository extends JpaRepository<Usuario, Long> {
     Usuario findByLogin(String login);
+
+    /**
+     * Verifica se existe o login salvo no BD
+     *
+     * @param login
+     * @return
+     */
+    boolean existsByLogin(String login);
+
+    /**
+     * Verifica se existe o login que não tenha o id no BD
+     *
+     * @param login
+     * @param id
+     * @return
+     */
+    boolean existsByLoginAndIdNot(String login, Long id);
 }

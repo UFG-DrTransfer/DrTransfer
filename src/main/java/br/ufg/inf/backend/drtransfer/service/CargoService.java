@@ -37,6 +37,7 @@ public class CargoService extends GenericService<Cargo, CargoRepository> {
                 || (!entidade.isNovo() && repository.existsByNomeAndIdNot(entidade.getNome(), entidade.getId()))) {
             throw new DrTransferException(HttpStatus.CONFLICT, CONFLICT, nomeClasse, "Nome");
         }
+
     }
 
     @Override

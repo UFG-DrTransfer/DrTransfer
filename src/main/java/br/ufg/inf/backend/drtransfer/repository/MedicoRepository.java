@@ -6,5 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
+
+    boolean existsByCpf(String cpf);
+
+    boolean existsByCpfAndIdNot(String cpf, Long id);
 }
 
