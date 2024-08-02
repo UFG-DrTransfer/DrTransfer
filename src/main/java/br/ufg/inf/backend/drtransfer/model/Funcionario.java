@@ -2,7 +2,6 @@ package br.ufg.inf.backend.drtransfer.model;
 
 import br.ufg.inf.backend.drtransfer.enumeradores.Sexo;
 import br.ufg.inf.backend.drtransfer.model.abstracts.Pessoa;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,7 @@ public class Funcionario extends Pessoa {
     private Cargo cargo;
 
     @ManyToOne
-    @JsonBackReference
+ //   @JsonBackReference
     private Hospital hospital;
 
     public Funcionario(String nome, String cpf, String telefone, String email, Sexo sexo, Cargo cargo, Hospital hospital) {

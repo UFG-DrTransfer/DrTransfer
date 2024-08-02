@@ -45,7 +45,7 @@ public class TransferenciaService extends GenericService<Transferencia, Transfer
         campoObrigatorio(entidade.getMedicoDestino(), "Médico destino");
         Hospital origem = entidade.getHospitalOrigem();
         Hospital destino = entidade.getHospitalDestino();
-        Map<String, Long> rotas = routeService.getRoute(origem.getLatitute(), origem.getLongitude(), destino.getLatitute(), destino.getLongitude());
+        Map<String, Long> rotas = routeService.getRoute(origem.getLatitude(), origem.getLongitude(), destino.getLatitude(), destino.getLongitude());
         if (rotas != null) {
             Long distancia = rotas.get("distancia");
             entidade.setDistancia(distancia.doubleValue());

@@ -1,9 +1,7 @@
 package br.ufg.inf.backend.drtransfer.model;
 
-import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClass;
 import br.ufg.inf.backend.drtransfer.model.abstracts.SuperClassAtivo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -31,7 +29,7 @@ public class Hospital extends SuperClassAtivo {
     private String email;
 
     @Schema(description = "Latitude", example = "-16.54512313")
-    private Double latitute;
+    private Double latitude;
 
     @Schema(description = "Longitude", example = "-14.45461223")
     private Double longitude;
@@ -40,9 +38,10 @@ public class Hospital extends SuperClassAtivo {
     private Integer availableBeds;
 
     @Schema(description = "Existe UTI no hospital", example = "true")
-    private boolean temUti;
+    private Boolean temUti = false;
 
-    @JsonManagedReference
+  //  @JsonManagedReference
+    @JsonIgnore
     @OneToMany (mappedBy = "hospital")
     private List<Funcionario> funcionarios;
 

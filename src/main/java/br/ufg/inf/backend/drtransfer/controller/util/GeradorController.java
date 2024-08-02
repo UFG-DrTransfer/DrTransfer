@@ -1,4 +1,4 @@
-package br.ufg.inf.backend.drtransfer.controller;
+package br.ufg.inf.backend.drtransfer.controller.util;
 
 
 import br.ufg.inf.backend.drtransfer.enumeradores.Sexo;

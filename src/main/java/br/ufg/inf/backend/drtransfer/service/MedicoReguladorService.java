@@ -4,6 +4,7 @@ import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.MedicoRegulador;
 import br.ufg.inf.backend.drtransfer.repository.MedicoReguladorRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
@@ -20,9 +21,18 @@ public class MedicoReguladorService extends GenericService<MedicoRegulador, Medi
         maiuscula(entidade, "crm");
     }
 
+    private void validaCrm(MedicoRegulador entidade) throws DrTransferException {
+        campoObrigatorio(entidade.getCrm(), "Crm");
+        if ((entidade.isNovo() && repository.existsByCrm(entidade.getCrm()))
+                || (!entidade.isNovo() && repository.existsByCrmAndIdNot(entidade.getCrm(), entidade.getId()))) {
+            throw new DrTransferException(HttpStatus.CONFLICT, CONFLICT, nomeClasse, "CRM");
+        }
+    }
+
     @Override
     protected void validaEntidade(MedicoRegulador entidade) throws DrTransferException {
         campoObrigatorio(entidade.getNome(), "CRM");
+        validaCrm(entidade);
 
     }
 
