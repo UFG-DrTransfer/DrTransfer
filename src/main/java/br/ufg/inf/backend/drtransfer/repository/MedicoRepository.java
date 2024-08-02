@@ -10,5 +10,9 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     boolean existsByCpf(String cpf);
 
     boolean existsByCpfAndIdNot(String cpf, Long id);
+
+    boolean existsByCrmAndIdNot(String crm, Long id);
+
+    boolean existsByCrm(String crm);
 }
 

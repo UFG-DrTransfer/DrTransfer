@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
-
 @Service
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class MedicoService extends GenericService<Medico, MedicoRepository> {
@@ -36,6 +34,7 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
         campoObrigatorio(entidade.getHospital(), "Hospital");
         campoObrigatorio(entidade.getEspecialidade(), "Especialidade");
         validaCpf(entidade);
+        validaCrm(entidade);
     }
 
     private void validaCpf(Medico entidade) throws DrTransferException {
@@ -43,6 +42,14 @@ public class MedicoService extends GenericService<Medico, MedicoRepository> {
         if ((entidade.isNovo() && repository.existsByCpf(entidade.getCpf()))
                 || (!entidade.isNovo() && repository.existsByCpfAndIdNot(entidade.getCpf(), entidade.getId()))) {
             throw new DrTransferException(HttpStatus.CONFLICT, CONFLICT, nomeClasse, "CPF");
+        }
+    }
+
+    private void validaCrm(Medico entidade) throws DrTransferException {
+        campoObrigatorio(entidade.getCrm(), "Crm");
+        if ((entidade.isNovo() && repository.existsByCrm(entidade.getCrm()))
+                || (!entidade.isNovo() && repository.existsByCrmAndIdNot(entidade.getCrm(), entidade.getId()))) {
+            throw new DrTransferException(HttpStatus.CONFLICT, CONFLICT, nomeClasse, "CRM");
         }
     }
 

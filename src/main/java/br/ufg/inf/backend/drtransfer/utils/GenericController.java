@@ -53,17 +53,6 @@ public abstract class GenericController<E extends SuperClass, S extends GenericS
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteE(@PathVariable Long id) {
-        try {
-            service.deleteById(id);
-            return ResponseEntity.ok().build();
-        } catch (DrTransferException e) {
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Falha ao deletar: " + e.getMessage());
-        }
-    }
+
 
 }

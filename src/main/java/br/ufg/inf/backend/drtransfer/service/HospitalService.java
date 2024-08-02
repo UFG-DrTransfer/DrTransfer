@@ -4,11 +4,7 @@ import br.ufg.inf.backend.drtransfer.exception.DrTransferException;
 import br.ufg.inf.backend.drtransfer.model.Hospital;
 import br.ufg.inf.backend.drtransfer.repository.HospitalRepository;
 import br.ufg.inf.backend.drtransfer.utils.GenericService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 import static br.ufg.inf.backend.drtransfer.utils.Utils.maiuscula;
 
@@ -30,9 +26,9 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 		validaNome(entidade);
 		campoObrigatorio(entidade.getTelephoneNumber(),("Telefone"));
 		campoObrigatorio(entidade.getLongitude(),"Longitude");
-		campoObrigatorio(entidade.getLatitute(),"Latitude");
+		campoObrigatorio(entidade.getLatitude(),"Latitude");
 		campoObrigatorio(entidade.getEmail(),"Email");
-		campoObrigatorio(entidade.isTemUti(),"UTI");
+		campoObrigatorio(entidade.getTemUti(),"UTI");
 		campoObrigatorio(entidade.getAvailableBeds(),"Leitos Disponíveis");
 
 	}
@@ -60,7 +56,7 @@ public class HospitalService extends GenericService<Hospital, HospitalRepository
 		atualizaCampo(entidadePersistida,entidadeAtualizada,"availableBeds");
 		atualizaCampo(entidadePersistida, entidadeAtualizada, "ativo");
 		atualizaCampo(entidadePersistida,entidadeAtualizada, "longitude");
-		atualizaCampo(entidadePersistida,entidadeAtualizada, "latidude");
+		atualizaCampo(entidadePersistida,entidadeAtualizada, "latitude");
 
 	}
 }

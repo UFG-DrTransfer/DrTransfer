@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface  MedicoReguladorRepository extends JpaRepository<MedicoRegulador, Long> {
 
 
+    boolean existsByCrm(String crm);
+
+    boolean existsByCrmAndIdNot(String cpf, Long id);
 }
